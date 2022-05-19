@@ -105,24 +105,41 @@ public class Board
     red.add(redPawn4);
     red.add(redPawn5);
   }
+  
   public static void setPiece(int r, int c, Piece p)
   {
     board[r][c] = p;
   }
+
+  
   public static void movePiece(int row1, int col1, int row2, int col2)
   {
-    if(row1 != row2 || col1 != col2)
+    if((row1 != row2 || col1 != col2) && getPiece(row1, col1) != null)
     {
       board[row1][col1].setCoord(row2, col2);
+      if(board[row2][col2] != null)
+      {
+        if(board[row2][col2].getTeam() == true)
+        {
+          green.remove(board[row2][col2]);
+        }
+        else if(board[row2][col2].getTeam() == false)
+        {
+          red.remove(board[row2][col2]);
+        }
+      }
       board[row2][col2] = board[row1][col1];
       board[row1][col1] = null;
     }
   }
+
+  
   public static Piece getPiece(int r, int c)
   {
     return board[r][c];
   }
 
+  
   public static void printBoard()
   {
     System.out.println("    0    1    2    3    4    5    6    7    8 ");
@@ -199,3 +216,20 @@ public class Board
     return red.get(0);
   }
 }
+
+/*
+g: 6 4 5 4
+r: 0 0 1 0
+g: 5 4 4 4
+r: 1 0 1 3
+g: 6 6 5 6
+r: 1 3 4 3 
+g: 6 8 5 8 
+r: 3 0 3 1
+g: 9 0 7 0
+r: 4 3 4 4 
+g: 8 4 8 5
+r: 3 2 3 3
+g: 5 6 4 6 
+r: 4 4 4 6 <- magic pawn appears
+*/
