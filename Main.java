@@ -24,9 +24,10 @@ public class Main {
     //Board.setPiece(guard1.getRow(), guard1.getColumn(), guard1);
     Board.printBoard();*/
 
+  //hello world (pp)
     Board.printBoard();
 
-    Board.movePiece(0, 7, 6, 5);
+    Board.movePiece(0, 7, 7, 6);
     Board.printBoard();
     System.out.println(Board.getGreenKing().isInCheck(Board.getRed()));
   }
