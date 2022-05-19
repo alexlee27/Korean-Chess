@@ -14,6 +14,8 @@ public class Main {
     Piece elephant1 = new Elephant(true, 3, 2);
     Piece guard1 = new Guard(true, 8, 4);
 
+    //hello world piece of shit
+
     //Board.setPiece(rook2.getRow(), rook2.getColumn(), rook2);
     //Board.setPiece(cannon1.getRow(), cannon1.getColumn(), cannon1);
     //Board.setPiece(rook1.getRow(), rook1.getColumn(), rook1 );
@@ -22,9 +24,9 @@ public class Main {
     Board.setPiece(knight1.getRow(), knight1.getColumn(), knight1);
     Board.setPiece(elephant1.getRow(), elephant1.getColumn(), elephant1);
     //Board.setPiece(guard1.getRow(), guard1.getColumn(), guard1);
-    Board.printBoard();*/
+    Board.printBoard();*/ //hello btw 
 
-  //hello world (pp)
+  //hello world (personal profile)
     Board.printBoard();
 
     Board.movePiece(0, 7, 7, 6);
