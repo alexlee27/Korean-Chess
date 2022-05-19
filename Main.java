@@ -62,11 +62,70 @@ public class Main {
         System.out.println("You're smart");
         
       }
+      //RED'S TURN
+      else
+      {
+        System.out.println(ConsoleColors.RED + "--Red--" + ConsoleColors.RESET);
+        System.out.println("Enter row of start: ");
+        int r1 = in.nextInt();
+        System.out.println("Enter column of start: ");
+        int c1 = in.nextInt();
+        System.out.println("Enter row of end: ");
+        int r2 = in.nextInt();
+        System.out.println("Enter column of end: ");
+        int c2 = in.nextInt();
 
-      
+        Piece temp = Board.getPiece(r2, c2);
+        Board.movePiece(r1, c1, r2, c2);
+        if(Board.getRedKing().isInCheck(Board.getGreen()))
+        {
+          suicideMove = true;
+        }
+        Board.movePiece(r2, c2, r1, c1);
+        Board.setPiece(r2, c2, temp);
+        while (Board.getPiece(r1, c1) == null || Board.getPiece(r1, c1).getTeam() == true || !Board.getPiece(r1, c1).canMove(r2, c2) || suicideMove)
+        {
+          System.out.println("You're stupid.");
+          System.out.println(ConsoleColors.RED + "--RED--" + ConsoleColors.RESET);
+          System.out.println("Enter row of start: ");
+          r1 = in.nextInt();
+          System.out.println("Enter column of start: ");
+          c1 = in.nextInt();
+          System.out.println("Enter row of end: ");
+          r2 = in.nextInt();
+          System.out.println("Enter column of end: ");
+          c2 = in.nextInt();
+
+          suicideMove = false;
+          temp = Board.getPiece(r2, c2);
+          Board.movePiece(r1, c1, r2, c2);
+          
+ if(Board.getRedKing().isInCheck(Board.getGreen()))
+          {
+            suicideMove = true;
+          }
+          Board.movePiece(r2, c2, r1, c1);
+          Board.setPiece(r2, c2, temp);
+        }
+
+        Board.movePiece(r1, c1, r2, c2);
+
+        System.out.println("You're smart");
+        
+      }
+      turn = !turn;
+
     }
     
-
+    //end of game
+    if (Board.getGreenKing().isCheckmate())
+    {
+      System.out.println("Red wins. Green sucks.");
+    }
+    else if(Board.getRedKing().isCheckmate())
+    {
+      System.out.println("Green wins. Red sucks.");
+    }
     
     
     //System.out.println(Board.getGreenKing().isInCheck(Board.getRed()));
