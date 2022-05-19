@@ -1,35 +1,77 @@
 import java.util.*;
 public class Main {
   public static void main(String[] args) {
-    Scanner s = new Scanner(System.in);
+    Scanner in = new Scanner(System.in);
     Board b = new Board();
-    //Piece rook2 = new Rook(true, 5, 0);
-    /*
-    Piece cannon1 = new Cannon(true, 9, 3);
-    Piece rook1 = new Rook(false, 8, 4);
-    Piece cannon3 = new Cannon(false, 7, 5);
-    Piece pawn1 = new Pawn(true, 2, 1);
+    boolean turn = true;
+    boolean suicideMove = false;
+    
+    System.out.println("Welcome to Korean chess!");
+    
+    while (!Board.getGreenKing().isCheckmate() && !Board.getGreenKing().isCheckmate())
+    {
+      Board.printBoard();
+      
+      //GREEN'S TURN
+      if (turn)
+      {
+        System.out.println(ConsoleColors.GREEN + "--Green--" + ConsoleColors.RESET);
+        System.out.println("Enter row of start: ");
+        int r1 = in.nextInt();
+        System.out.println("Enter column of start: ");
+        int c1 = in.nextInt();
+        System.out.println("Enter row of end: ");
+        int r2 = in.nextInt();
+        System.out.println("Enter column of end: ");
+        int c2 = in.nextInt();
 
-    Piece knight1 = new Knight(false, 4, 4);
-    Piece elephant1 = new Elephant(true, 3, 2);
-    Piece guard1 = new Guard(true, 8, 4);
+        Piece temp = Board.getPiece(r2, c2);
+        Board.movePiece(r1, c1, r2, c2);
+        if(Board.getGreenKing().isInCheck(Board.getRed()))
+        {
+          suicideMove = true;
+        }
+        Board.movePiece(r2, c2, r1, c1);
+        Board.setPiece(r2, c2, temp);
+        while (Board.getPiece(r1, c1) == null || Board.getPiece(r1, c1).getTeam() == false || !Board.getPiece(r1, c1).canMove(r2, c2) || suicideMove)
+        {
+          System.out.println("You're stupid.");
+          System.out.println(ConsoleColors.GREEN + "--Green--" + ConsoleColors.RESET);
+          System.out.println("Enter row of start: ");
+          r1 = in.nextInt();
+          System.out.println("Enter column of start: ");
+          c1 = in.nextInt();
+          System.out.println("Enter row of end: ");
+          r2 = in.nextInt();
+          System.out.println("Enter column of end: ");
+          c2 = in.nextInt();
 
-    //Board.setPiece(rook2.getRow(), rook2.getColumn(), rook2);
-    //Board.setPiece(cannon1.getRow(), cannon1.getColumn(), cannon1);
-    //Board.setPiece(rook1.getRow(), rook1.getColumn(), rook1 );
-    //Board.setPiece(cannon3.getRow(), cannon3.getColumn(), cannon3);
-    Board.setPiece(pawn1.getRow(), pawn1.getColumn(), pawn1);
-    Board.setPiece(knight1.getRow(), knight1.getColumn(), knight1);
-    Board.setPiece(elephant1.getRow(), elephant1.getColumn(), elephant1);
-    //Board.setPiece(guard1.getRow(), guard1.getColumn(), guard1);
-    Board.printBoard();*/
+          suicideMove = false;
+          temp = Board.getPiece(r2, c2);
+          Board.movePiece(r1, c1, r2, c2);
+          if(Board.getGreenKing().isInCheck(Board.getRed()))
+          {
+            suicideMove = true;
+          }
+          Board.movePiece(r2, c2, r1, c1);
+          Board.setPiece(r2, c2, temp);
+        }
 
-  //hello world (pp)
-    Board.printBoard();
+        Board.movePiece(r1, c1, r2, c2);
 
-    Board.movePiece(0, 7, 7, 6);
-    Board.printBoard();
-    System.out.println(Board.getGreenKing().isInCheck(Board.getRed()));
+        System.out.println("You're smart");
+        
+      }
+
+      
+    }
+    
+
+    
+    
+    //System.out.println(Board.getGreenKing().isInCheck(Board.getRed()));
+   
+   //System.out.println(Board.getGreenKing().isInCheck(Board.getRed()));       //System.out.println(Board.getGreenKing().isCheckmate());
   }
 
 }
