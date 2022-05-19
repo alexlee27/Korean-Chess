@@ -1,3 +1,4 @@
+import java.lang.Math;
 import java.util.ArrayList;
 public class Board
 {
@@ -108,7 +109,21 @@ public class Board
   
   public static void setPiece(int r, int c, Piece p)
   {
+    //this method only gets used in the isCheckmate in the King class
+    //when simulating each possible move while detecting checkmate
+    //has to make sure it adds back the captured piece during the simulation
     board[r][c] = p;
+    if(p != null)
+    {
+      if(board[r][c].getTeam() == true)
+      {
+        green.add(board[r][c]);
+      }
+      else if(board[r][c].getTeam() == false)
+      {
+        red.add(board[r][c]);
+      }
+    }
   }
 
   
@@ -214,6 +229,65 @@ public class Board
   public static Piece getRedKing()
   {
     return red.get(0);
+  }
+
+  public static void flipBoard()
+  {
+    ArrayList<Piece> temp = new ArrayList<Piece>();
+    for (Piece[] p : board)
+    {
+      for (Piece pp : p)
+      {
+        if (pp != null)
+        {
+          temp.add(pp);
+          setPiece(pp.getRow(), pp.getColumn(), null);
+        }
+      }
+    }
+    ArrayList<int[]> coords = new ArrayList<int[]>();
+    int r = (int)(Math.random() * 10);
+    int c = (int)(Math.random() * 9);
+    for (int i = temp.size() - 1; i >= 0; i--)
+    {
+      boolean valid = true;
+      int[] currentCoord = new int[2];
+      currentCoord[0] = r;
+      currentCoord[1] = c;
+      for (int j = 0; j < coords.size(); j++)
+      {
+        if(coords.get(j)[0] == currentCoord[0] && coords.get(j)[1] == currentCoord[1])
+        {
+          valid = false;
+          break;
+        }
+      }
+      while(!valid)
+      {
+        valid = true;
+        r = (int)(Math.random() * 10);
+        c = (int)(Math.random() * 9);
+        currentCoord[0] = r;
+        currentCoord[1] = c;
+        for (int j = 0; j < coords.size(); j++)
+        {
+          if(coords.get(j)[0] == currentCoord[0] && coords.get(j)[1] == currentCoord[1])
+          {
+            valid = false;
+            break;
+          }
+        }
+      }
+      coords.add(currentCoord);
+      
+      board[r][c] = temp.remove(i);
+  
+      r = (int)(Math.random() * 10);
+      c = (int)(Math.random() * 9);
+    }
+  
+    
+    
   }
 }
 
