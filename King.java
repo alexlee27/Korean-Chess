@@ -102,4 +102,77 @@ public class King extends Piece
     }
     return false;
   }
+
+  //Precondition: one king is already in check
+  public boolean isCheckmate()
+  {
+    //if method was called with green king
+    if(super.getTeam() == true)
+    {
+      //scanning through entire board
+      for(int r = 0; r <= 9; r++)
+      {
+        for(int c = 0; c <= 8; c++)
+        {
+          //no need to check if square is occupied by a teammate piece
+          if (Board.getPiece(r, c) == null || Board.getPiece(r, c).getTeam() == false)
+          {
+            for(Piece p : Board.getGreen())
+            {
+              if(p.canMove(r, c))
+              {
+                int originalRow = p.getRow();
+                int originalColumn = p.getColumn();
+                Piece temp = Board.getPiece(r, c);
+                Board.movePiece(p.getRow(), p.getColumn(), r, c);
+                if(!isInCheck(Board.getRed()))
+                {
+                  Board.movePiece(r, c, originalRow, originalColumn);
+                  Board.setPiece(r, c, temp);
+                  return false;
+                }
+                Board.movePiece(r, c, originalRow, originalColumn);
+                Board.setPiece(r, c, temp);
+              }
+            }
+          }
+        }
+      }
+    }
+
+    //if method was called with red king
+    if(super.getTeam() == false)
+    {
+      //scanning through entire board
+      for(int r = 0; r <= 9; r++)
+      {
+        for(int c = 0; c <= 8; c++)
+        {
+          //no need to check if square is occupied by a teammate piece
+          if (Board.getPiece(r, c) == null || Board.getPiece(r, c).getTeam() == true)
+          {
+            for(Piece p : Board.getRed())
+            {
+              if(p.canMove(r, c))
+              {
+                int originalRow = p.getRow();
+                int originalColumn = p.getColumn();
+                Piece temp = Board.getPiece(r, c);
+                Board.movePiece(p.getRow(), p.getColumn(), r, c);
+                if(!isInCheck(Board.getGreen()))
+                {
+                  Board.movePiece(r, c, originalRow, originalColumn);
+                  Board.setPiece(r, c, temp);
+                  return false;
+                }
+                Board.movePiece(r, c, originalRow, originalColumn);
+                Board.setPiece(r, c, temp);
+              }
+            }
+          }
+        }
+      }
+    }
+    return true;
+  }
 }

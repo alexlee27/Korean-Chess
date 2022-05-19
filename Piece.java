@@ -42,4 +42,9 @@ public class Piece
     row = r;
     column = c;
   }
+
+  public boolean isCheckmate()
+  {
+    return false;
+  }
 }

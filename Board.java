@@ -111,9 +111,12 @@ public class Board
   }
   public static void movePiece(int row1, int col1, int row2, int col2)
   {
-    board[row1][col1].setCoord(row2, col2);
-    board[row2][col2] = board[row1][col1];
-    board[row1][col1] = null;
+    if(row1 != row2 || col1 != col2)
+    {
+      board[row1][col1].setCoord(row2, col2);
+      board[row2][col2] = board[row1][col1];
+      board[row1][col1] = null;
+    }
   }
   public static Piece getPiece(int r, int c)
   {
