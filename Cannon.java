@@ -91,7 +91,7 @@ public class Cannon extends Piece
       //if to move vertically (same column)
       else if (c == super.getColumn())
       {
-        //checks if the piece is trying to move up
+        //checks if the piece is trying to move down
         if (super.getRow() < r)
         {
           for(int i = super.getRow() + 1; i < r; i++)
@@ -120,7 +120,7 @@ public class Cannon extends Piece
           }
         }
           
-        //checks if the piece is trying to move down
+        //checks if the piece is trying to move up
         else
         {
           for(int i = super.getRow() - 1; i > r; i--)

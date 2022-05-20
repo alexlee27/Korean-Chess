@@ -73,6 +73,7 @@ public class Board
     Piece redPawn5 = new Pawn(false, 3, 8);
     setPiece(redPawn5.getRow(), redPawn5.getColumn(), redPawn5);
 
+    /*
     green.add(greenKing);
     green.add(greenGuard1);
     green.add(greenGuard2);
@@ -105,6 +106,7 @@ public class Board
     red.add(redPawn3);
     red.add(redPawn4);
     red.add(redPawn5);
+    */
   }
   
   public static void setPiece(int r, int c, Piece p)
@@ -143,9 +145,9 @@ public class Board
           red.remove(board[row2][col2]);
         }
       }
-      board[row2][col2] = board[row1][col1];
-      board[row1][col1] = null;
     }
+    board[row2][col2] = board[row1][col1];
+    board[row1][col1] = null;
   }
 
   
@@ -229,6 +231,22 @@ public class Board
   public static Piece getRedKing()
   {
     return red.get(0);
+  }
+
+  public static boolean kingsAreFacing()
+  {
+    if(getGreenKing().getColumn() == getRedKing().getColumn())
+    {
+      for(int i = getRedKing().getRow() + 1; i < getGreenKing().getRow(); i++)
+      {
+        if (Board.getPiece(i, getGreenKing().getColumn()) != null)
+        {
+          return false;
+        }
+      }
+      return true;
+    }
+    return false;
   }
 
   public static void flipBoard()
