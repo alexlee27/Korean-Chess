@@ -1,15 +1,99 @@
+import javax.swing.JFrame;
 import java.util.*;
 public class Main {
+  static boolean turn = true;
+  static boolean suicideMove = false;
+  static boolean flipped = false;
+  static int kingsFacingTurns = 0;
+  static boolean facingDraw = false;
+  static Piece temp;
+
+
+  /* WELCOME TO THE FILES! YOU HAVE UNLOCKED SECRET: FLIP BOARD
+
+  Enter:
+  6
+  12
+  9
+  16
+  
+  You will flip the board and therefore resign.
+
+  Enjoy reading the rest of the dumpster that is the code.
+  */
+  
   public static void main(String[] args) {
+    new MyFrame();
     Scanner in = new Scanner(System.in);
     Board b = new Board();
-    boolean turn = true;
-    boolean suicideMove = false;
-    boolean flipped = false;
     System.out.println("Welcome to Korean chess!");
+    for (int i = 0; i < Board.getGreen().size(); i++)
+    {
+      if (Board.getGreen().get(i) instanceof Pawn)
+      {
+        System.out.print("P");
+      }
+      else if (Board.getGreen().get(i) instanceof Guard)
+      {
+        System.out.print("G");
+      }
+      else if (Board.getGreen().get(i) instanceof Knight)
+      {
+        System.out.print("N");
+      }
+      else if (Board.getGreen().get(i) instanceof Elephant)
+      {
+        System.out.print("E");
+      }
+      else if (Board.getGreen().get(i) instanceof Rook)
+      {
+        System.out.print("R");
+      }
+      else if (Board.getGreen().get(i) instanceof Cannon)
+      {
+        System.out.print("C");
+      }
+      else if (Board.getGreen().get(i) instanceof King)
+      {
+        System.out.print("K");
+      }
+    }
+    System.out.println();
+    for (int i = 0; i < Board.getRed().size(); i++)
+    {
+      if (Board.getRed().get(i) instanceof Pawn)
+      {
+        System.out.print("P");
+      }
+      else if (Board.getRed().get(i) instanceof Guard)
+      {
+        System.out.print("G");
+      }
+      else if (Board.getRed().get(i) instanceof Knight)
+      {
+        System.out.print("N");
+      }
+      else if (Board.getRed().get(i) instanceof Elephant)
+      {
+        System.out.print("E");
+      }
+      else if (Board.getRed().get(i) instanceof Rook)
+      {
+        System.out.print("R");
+      }
+      else if (Board.getRed().get(i) instanceof Cannon)
+      {
+        System.out.print("C");
+      }
+      else if (Board.getRed().get(i) instanceof King)
+      {
+        System.out.print("K");
+      }
+    }
+    System.out.println();
 
     game:
-      while (!Board.getGreenKing().isCheckmate() && !Board.getGreenKing().isCheckmate())
+      while (!Board.getGreenKing().isCheckmate() && !Board.getRedKing().isCheckmate())
       {
         Board.printBoard();
         
@@ -19,91 +103,100 @@ public class Main {
           System.out.println(ConsoleColors.GREEN + "--Green--" + ConsoleColors.RESET);
           System.out.println("Enter row of start: ");
           int r1 = in.nextInt();
-          if (r1 == 10)
+          if (r1 == -1)
           {
-            Board.flipBoard();
-            flipped = true;
-            break game;
+            turn = !turn;
+            System.out.println(ConsoleColors.GREEN + "Green passed." + ConsoleColors.RESET);
+            continue;
           }
           System.out.println("Enter column of start: ");
           int c1 = in.nextInt();
-          if (c1 == 10)
+          if (c1 == -1)
           {
-            Board.flipBoard();
-            flipped = true;
-            break game;
+            turn = !turn;
+            System.out.println(ConsoleColors.GREEN + "Green passed." + ConsoleColors.RESET);
+            continue;
           }
           System.out.println("Enter row of end: ");
           int r2 = in.nextInt();
-          if (r2 == 10)
+          if (r2 == -1)
           {
-            Board.flipBoard();
-            flipped = true;
-            break game;
+            turn = !turn;
+            System.out.println(ConsoleColors.GREEN + "Green passed." + ConsoleColors.RESET);
+            continue;
           }
           System.out.println("Enter column of end: ");
           int c2 = in.nextInt();
-          if (c2 == 10)
+          if (c2 == -1)
+          {
+            turn = !turn;
+            System.out.println(ConsoleColors.GREEN + "Green passed." + ConsoleColors.RESET);
+            continue;
+          }
+
+          if(r1 == 6 && c1 == 12 && r2 == 9 && c2 == 16)
           {
             Board.flipBoard();
             flipped = true;
             break game;
           }
-  
-  
-          Piece temp = Board.getPiece(r2, c2);
-          Board.movePiece(r1, c1, r2, c2);
-          if(Board.getGreenKing().isInCheck(Board.getRed()))
+
+          checkForSuicideMove(r1, c1, r2, c2);
+          
+          if(kingsFacingDraw(r1, c1, r2, c2))
           {
-            suicideMove = true;
+            break game;
           }
-          Board.movePiece(r2, c2, r1, c1);
-          Board.setPiece(r2, c2, temp);
           while (Board.getPiece(r1, c1) == null || Board.getPiece(r1, c1).getTeam() == false || !Board.getPiece(r1, c1).canMove(r2, c2) || suicideMove)
           {
             System.out.println("You're stupid.");
             System.out.println(ConsoleColors.GREEN + "--Green--" + ConsoleColors.RESET);
             System.out.println("Enter row of start: ");
             r1 = in.nextInt();
-            if (r1 == 10){
-              Board.flipBoard();
-              flipped = true;
-              break game;
+            if (r1 == -1)
+            {
+              turn = !turn;
+              System.out.println(ConsoleColors.GREEN + "Green passed." + ConsoleColors.RESET);
+              continue;
             }
             System.out.println("Enter column of start: ");
             c1 = in.nextInt();
-            if (c1 == 10)
+            if (c1 == -1)
             {
-              Board.flipBoard();
-              flipped = true;
-              break game;
+              turn = !turn;
+              System.out.println(ConsoleColors.GREEN + "Green passed." + ConsoleColors.RESET);
+              continue;
             }
             System.out.println("Enter row of end: ");
             r2 = in.nextInt();
-            if (c1 == 10)
+            if (r2 == -1)
             {
-              Board.flipBoard();
-              flipped = true;
-              break game;
+              turn = !turn;
+              System.out.println(ConsoleColors.GREEN + "Green passed." + ConsoleColors.RESET);
+              continue;
             }
             System.out.println("Enter column of end: ");
             c2 = in.nextInt();
-              if (c1 == 10)
+            if (c2 == -1)
+            {
+              turn = !turn;
+              System.out.println(ConsoleColors.GREEN + "Green passed." + ConsoleColors.RESET);
+              continue;
+            }
+
+            if(r1 == 6 && c1 == 12 && r2 == 9 && c2 == 16)
             {
               Board.flipBoard();
               flipped = true;
               break game;
             }
   
-            suicideMove = false;
-            temp = Board.getPiece(r2, c2);
-            Board.movePiece(r1, c1, r2, c2);
-            if(Board.getGreenKing().isInCheck(Board.getRed()))
+            checkForSuicideMove(r1, c1, r2, c2);
+            
+            if(kingsFacingDraw(r1, c1, r2, c2))
             {
-              suicideMove = true;
+              break game;
             }
-            Board.movePiece(r2, c2, r1, c1);
-            Board.setPiece(r2, c2, temp);
           }
   
           Board.movePiece(r1, c1, r2, c2);
@@ -117,89 +210,100 @@ public class Main {
           System.out.println(ConsoleColors.RED + "--Red--" + ConsoleColors.RESET);
           System.out.println("Enter row of start: ");
           int r1 = in.nextInt();
-          if (r1 == 10){
-            Board.flipBoard();
-            flipped = true;
-            break game;
+          if (r1 == -1)
+          {
+            turn = !turn;
+            System.out.println(ConsoleColors.RED + "Red passed." + ConsoleColors.RESET);
+            continue;
           }
           System.out.println("Enter column of start: ");
           int c1 = in.nextInt();
-          if (c1 == 10)
+          if (c1 == -1)
           {
-            Board.flipBoard();
-            flipped = true;
-            break game;
+            turn = !turn;
+            System.out.println(ConsoleColors.RED + "Red passed." + ConsoleColors.RESET);
+            continue;
           }
           System.out.println("Enter row of end: ");
           int r2 = in.nextInt();
-          if (c1 == 10)
+          if (r2 == -1)
           {
-            Board.flipBoard();
-            flipped = true;
-            break game;
+            turn = !turn;
+            System.out.println(ConsoleColors.RED + "Red passed." + ConsoleColors.RESET);
+            continue;
           }
           System.out.println("Enter column of end: ");
           int c2 = in.nextInt();
-            if (c1 == 10)
+          if (c2 == -1)
+          {
+            turn = !turn;
+            System.out.println(ConsoleColors.RED + "Red passed." + ConsoleColors.RESET);
+            continue;
+          }
+
+          if(r1 == 6 && c1 == 12 && r2 == 9 && c2 == 16)
           {
             Board.flipBoard();
             flipped = true;
             break game;
           }
-  
-          Piece temp = Board.getPiece(r2, c2);
-          Board.movePiece(r1, c1, r2, c2);
-          if(Board.getRedKing().isInCheck(Board.getGreen()))
+          
+          checkForSuicideMove(r1, c1, r2, c2);
+
+          if(kingsFacingDraw(r1, c1, r2, c2))
           {
-            suicideMove = true;
+            break game;
           }
-          Board.movePiece(r2, c2, r1, c1);
-          Board.setPiece(r2, c2, temp);
           while (Board.getPiece(r1, c1) == null || Board.getPiece(r1, c1).getTeam() == true || !Board.getPiece(r1, c1).canMove(r2, c2) || suicideMove)
           {
             System.out.println("You're stupid.");
             System.out.println(ConsoleColors.RED + "--RED--" + ConsoleColors.RESET);
             System.out.println("Enter row of start: ");
             r1 = in.nextInt();
-            if (r1 == 10){
-              Board.flipBoard();
-              flipped = true;
-              break game;
+            if (r1 == -1)
+            {
+              turn = !turn;
+              System.out.println(ConsoleColors.RED + "Red passed." + ConsoleColors.RESET);
+              continue;
             }
             System.out.println("Enter column of start: ");
             c1 = in.nextInt();
-            if (c1 == 10)
+            if (c1 == -1)
             {
-              Board.flipBoard();
-              flipped = true;
-              break game;
+              turn = !turn;
+              System.out.println(ConsoleColors.RED + "Red passed." + ConsoleColors.RESET);
+              continue;
             }
             System.out.println("Enter row of end: ");
             r2 = in.nextInt();
-            if (c1 == 10)
+            if (r2 == -1)
             {
-              Board.flipBoard();
-              flipped = true;
-              break game;
+              turn = !turn;
+              System.out.println(ConsoleColors.RED + "Red passed." + ConsoleColors.RESET);
+              continue;
             }
             System.out.println("Enter column of end: ");
             c2 = in.nextInt();
-            if (c1 == 10)
+            if (c2 == -1)
+            {
+              turn = !turn;
+              System.out.println(ConsoleColors.RED + "Red passed." + ConsoleColors.RESET);
+              continue;
+            }
+
+            if(r1 == 6 && c1 == 12 && r2 == 9 && c2 == 16)
             {
               Board.flipBoard();
               flipped = true;
               break game;
             }
   
-            suicideMove = false;
-            temp = Board.getPiece(r2, c2);
-            Board.movePiece(r1, c1, r2, c2);
-            if(Board.getRedKing().isInCheck(Board.getGreen()))
+            checkForSuicideMove(r1, c1, r2, c2);
+
+            if(kingsFacingDraw(r1, c1, r2, c2))
             {
-              suicideMove = true;
+              break game;
             }
-            Board.movePiece(r2, c2, r1, c1);
-            Board.setPiece(r2, c2, temp);
           }
   
           Board.movePiece(r1, c1, r2, c2);
@@ -208,11 +312,76 @@ public class Main {
           
         }
         turn = !turn;
+        for (int i = 0; i < Board.getGreen().size(); i++)
+        {
+          if (Board.getGreen().get(i) instanceof Pawn)
+          {
+            System.out.print("P");
+          }
+          else if (Board.getGreen().get(i) instanceof Guard)
+          {
+            System.out.print("G");
+          }
+          else if (Board.getGreen().get(i) instanceof Knight)
+          {
+            System.out.print("N");
+          }
+          else if (Board.getGreen().get(i) instanceof Elephant)
+          {
+            System.out.print("E");
+          }
+          else if (Board.getGreen().get(i) instanceof Rook)
+          {
+            System.out.print("R");
+          }
+          else if (Board.getGreen().get(i) instanceof Cannon)
+          {
+            System.out.print("C");
+          }
+          else if (Board.getGreen().get(i) instanceof King)
+          {
+            System.out.print("K");
+          }
+        }
+        System.out.println();
+        for (int i = 0; i < Board.getRed().size(); i++)
+        {
+          if (Board.getRed().get(i) instanceof Pawn)
+          {
+            System.out.print("P");
+          }
+          else if (Board.getRed().get(i) instanceof Guard)
+          {
+            System.out.print("G");
+          }
+          else if (Board.getRed().get(i) instanceof Knight)
+          {
+            System.out.print("N");
+          }
+          else if (Board.getRed().get(i) instanceof Elephant)
+          {
+            System.out.print("E");
+          }
+          else if (Board.getRed().get(i) instanceof Rook)
+          {
+            System.out.print("R");
+          }
+          else if (Board.getRed().get(i) instanceof Cannon)
+          {
+            System.out.print("C");
+          }
+          else if (Board.getRed().get(i) instanceof King)
+          {
+            System.out.print("K");
+          }
+        }
+        System.out.println();
       }
 
 
-    Board.printBoard();
+    
     //end of game
+    Board.printBoard();
     if (flipped)
     {
       if (turn)
@@ -224,16 +393,17 @@ public class Main {
         System.out.println("Red flipped the board. What a baby. Loser. Little wah wah infant poopy diapers.");
       }
     }
-    else
+    else if (Board.getGreenKing().isCheckmate())
     {
-      if (Board.getGreenKing().isCheckmate())
-      {
-        System.out.println("Red wins. Green sucks.");
-      }
-      else if(Board.getRedKing().isCheckmate())
-      {
-        System.out.println("Green wins. Red sucks.");
-      }
+      System.out.println("Checkmate. Red wins. Green sucks.");
+    }
+    else if (Board.getRedKing().isCheckmate())
+    {
+      System.out.println("Checkmate. Green wins. Red sucks.");
+    }
+    else if (facingDraw)
+    {
+      System.out.println("The game ended in a draw as the players agreed to let the kings face each other."); 
     }
     
     //System.out.println(Board.getGreenKing().isInCheck(Board.getRed()));
@@ -241,4 +411,111 @@ public class Main {
    //System.out.println(Board.getGreenKing().isInCheck(Board.getRed()));       //System.out.println(Board.getGreenKing().isCheckmate());
   }
 
+  public static boolean kingsFacingDraw(int r1, int c1, int r2, int c2)
+  {
+    //System.out.println("kingsFacingDraw");
+    boolean result = false;
+    if (Board.getPiece(r1, c1) != null && Board.getPiece(r1, c1).canMove(r2, c2))
+    {
+      Piece temp = Board.getPiece(r2, c2);
+      Board.movePiece(r1, c1, r2, c2);
+      if(kingsFacingTurns == 0)
+      {
+        if(!suicideMove && Board.kingsAreFacing())
+        {
+          kingsFacingTurns++;
+        }
+      }
+      else if(kingsFacingTurns == 1)
+      {
+        if(!suicideMove && !Board.kingsAreFacing())
+        {
+          kingsFacingTurns = 0;
+        }
+        else if(Board.kingsAreFacing())
+        {
+          result = true;
+          facingDraw = true;
+        }
+      }
+      if(!result)
+      {
+        Board.movePiece(r2, c2, r1, c1);
+        Board.setPiece(r2, c2, temp);
+      }
+    }
+    return result;
+  }
+
+  public static void checkForSuicideMove(int r1, int c1, int r2, int c2)
+  {
+    //System.out.println("running checkForSuicideMove");
+    suicideMove = false;
+    if(Board.getPiece(r1, c1) != null && Board.getPiece(r1, c1).canMove(r2, c2))
+    {
+      temp = Board.getPiece(r2, c2);
+      Board.movePiece(r1, c1, r2, c2);
+      if(turn && Board.getGreenKing().isInCheck(Board.getRed()))
+      {
+        suicideMove = true;
+      }
+      else if(!turn && Board.getRedKing().isInCheck(Board.getGreen()))
+      {
+        suicideMove = true;
+      }
+      Board.movePiece(r2, c2, r1, c1);
+      Board.setPiece(r2, c2, temp);
+    }
+  }
+    /*if (Board.getPiece(r1, c1) != null && Board.getPiece(r1, c1).canMove(r2, c2))
+    {
+      Board.movePiece(r1, c1, r2, c2);
+      if (Board.kingsAreFacing())
+      {
+        kingsFacingTurns++;
+      }
+      else
+      {
+        kingsFacingTurns = 0;
+      }
+      Board.movePiece(r2, c2, r1, c1);
+      Board.setPiece(r2, c2, temp);
+    }
+    if (kingsFacingTurns > 1)
+    {
+      Board.printBoard();
+      System.out.println("Players have agreed to draw."); 
+      result = true;
+    }*/
+
 }
+
+
+
+//After attempting move:
+
+//1st case: suicideMove, doesn't face the kings, count 0
+//kingsFacingTurn stays the same
+
+
+//2nd case: not a suicideMove, doesn't face the kings, count 0
+//shouldn't do anything
+
+//3rd case: not a suicideMove, faces the kings, count 0
+//kingsFacingTurn++
+
+//4th: suicideMove, faces the kings, count 0
+//kingsFacingTurn stays the same
+
+//5TH case: suicideMove, doesn't face the kings, count 1
+//kingsFacingTurn stays the same
+
+//6th case: not a suicideMove, doesn't face the kings, count 1
+//kingsFacingTurn = 0;
+
+
+//7th case: not a suicideMove, faces the kings, count 1
+//end game
+
+//8th: suicideMove, faces the kings, count 1
+//end game

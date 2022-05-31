@@ -115,20 +115,29 @@ public class King extends Piece
         for(int c = 0; c <= 8; c++)
         {
           //no need to check if square is occupied by a teammate piece
-          if (Board.getPiece(r, c) == null || Board.getPiece(r, c).getTeam() == false)
+          if ((Board.getPiece(r, c) == null || Board.getPiece(r, c).getTeam() == false) && !(Board.getPiece(r, c) instanceof King))
           {
+            //check if any teammate piece can move there
             for(Piece p : Board.getGreen())
             {
+              //if yes:
               if(p.canMove(r, c))
               {
+                //note down original position
                 int originalRow = p.getRow();
                 int originalColumn = p.getColumn();
+                //note down content of target square
                 Piece temp = Board.getPiece(r, c);
+                //simulate move
                 Board.movePiece(p.getRow(), p.getColumn(), r, c);
+                //if after move king is no longer in check
                 if(!isInCheck(Board.getRed()))
                 {
                   Board.movePiece(r, c, originalRow, originalColumn);
                   Board.setPiece(r, c, temp);
+                  //System.out.println("green not checkmate!!!!!");
+                  //System.out.println("piece on " + originalRow + " " + originalColumn);
+                  //System.out.println("went to " + r + " " + c);
                   return false;
                 }
                 Board.movePiece(r, c, originalRow, originalColumn);
@@ -163,6 +172,9 @@ public class King extends Piece
                 {
                   Board.movePiece(r, c, originalRow, originalColumn);
                   Board.setPiece(r, c, temp);
+                  //System.out.println("red not checkmate!!!!!");
+                  //System.out.println("piece on " + originalRow + " " + originalColumn);
+                  //System.out.println("went to " + r + " " + c);
                   return false;
                 }
                 Board.movePiece(r, c, originalRow, originalColumn);
@@ -173,8 +185,16 @@ public class King extends Piece
         }
       }
     }
+    //System.out.println("checkmate!!!!!! *default dances*");
     return true;
   }
+
+  public String toString()
+  {
+    return "King";
+  }
+
+  
 }
 
 /*
@@ -191,4 +211,26 @@ public class King extends Piece
 5 4 5 5
 2 1 2 4
 8 4 8 5 (or 8 4 7 5)?
+1 5 5 5
+6 6 6 5
+5 5 6 5 
+8 5 8 4 (illegal move)
 */
+
+/* third debugging (lmao)
+9 0 8 0
+3 4 4 4
+8 0 8 3
+4 4 5 4 
+9 8 8 8
+5 4 6 4
+8 8 8 5
+6 4 7 4
+8 4 7 4
+3 2 4 2
+9 7 7 6
+4 2 5 2
+7 4 8 4
+6 3 0 0     3 6 4 6 (monke)
+magical rook appears at 6, 3
+  */

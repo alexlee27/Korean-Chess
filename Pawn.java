@@ -64,4 +64,9 @@ public class Pawn extends Piece
     
     return false;
   }
+
+  public String toString()
+  {
+    return "Pawn";
+  }
 }

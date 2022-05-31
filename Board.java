@@ -73,6 +73,7 @@ public class Board
     Piece redPawn5 = new Pawn(false, 3, 8);
     setPiece(redPawn5.getRow(), redPawn5.getColumn(), redPawn5);
 
+    /*
     green.add(greenKing);
     green.add(greenGuard1);
     green.add(greenGuard2);
@@ -105,11 +106,12 @@ public class Board
     red.add(redPawn3);
     red.add(redPawn4);
     red.add(redPawn5);
+    */
   }
   
   public static void setPiece(int r, int c, Piece p)
   {
-    //this method only gets used in the isCheckmate in the King class
+    //this method only gets used in the isCheckmate in the King class and checking for suicide moves in Main class
     //when simulating each possible move while detecting checkmate
     //has to make sure it adds back the captured piece during the simulation
     board[r][c] = p;
@@ -124,6 +126,7 @@ public class Board
         red.add(board[r][c]);
       }
     }
+    //System.out.println(board[r][c] + "added back");
   }
 
   
@@ -231,6 +234,22 @@ public class Board
     return red.get(0);
   }
 
+  public static boolean kingsAreFacing()
+  {
+    if(getGreenKing().getColumn() == getRedKing().getColumn())
+    {
+      for(int i = getRedKing().getRow() + 1; i < getGreenKing().getRow(); i++)
+      {
+        if (Board.getPiece(i, getGreenKing().getColumn()) != null)
+        {
+          return false;
+        }
+      }
+      return true;
+    }
+    return false;
+  }
+
   public static void flipBoard()
   {
     ArrayList<Piece> temp = new ArrayList<Piece>();
@@ -289,6 +308,7 @@ public class Board
     
     
   }
+  
 }
 
 /*

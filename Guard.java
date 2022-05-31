@@ -84,4 +84,9 @@ public class Guard extends Piece
     }
     return false;
   }
+
+  public String toString()
+  {
+    return "Guard";
+  }
 }
