@@ -111,7 +111,7 @@ public class Board
   
   public static void setPiece(int r, int c, Piece p)
   {
-    //this method only gets used in the isCheckmate in the King class
+    //this method only gets used in the isCheckmate in the King class and checking for suicide moves in Main class
     //when simulating each possible move while detecting checkmate
     //has to make sure it adds back the captured piece during the simulation
     board[r][c] = p;
@@ -126,6 +126,7 @@ public class Board
         red.add(board[r][c]);
       }
     }
+    //System.out.println(board[r][c] + "added back");
   }
 
   
@@ -145,9 +146,9 @@ public class Board
           red.remove(board[row2][col2]);
         }
       }
+      board[row2][col2] = board[row1][col1];
+      board[row1][col1] = null;
     }
-    board[row2][col2] = board[row1][col1];
-    board[row1][col1] = null;
   }
 
   
@@ -307,6 +308,7 @@ public class Board
     
     
   }
+  
 }
 
 /*

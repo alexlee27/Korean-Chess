@@ -68,4 +68,9 @@ public class Elephant extends Piece
     }
     return false;
   }
+
+  public String toString()
+  {
+    return "Elephant";
+  }
 }

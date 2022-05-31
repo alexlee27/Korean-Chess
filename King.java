@@ -115,23 +115,29 @@ public class King extends Piece
         for(int c = 0; c <= 8; c++)
         {
           //no need to check if square is occupied by a teammate piece
-          if (Board.getPiece(r, c) == null || Board.getPiece(r, c).getTeam() == false)
+          if ((Board.getPiece(r, c) == null || Board.getPiece(r, c).getTeam() == false) && !(Board.getPiece(r, c) instanceof King))
           {
+            //check if any teammate piece can move there
             for(Piece p : Board.getGreen())
             {
+              //if yes:
               if(p.canMove(r, c))
               {
+                //note down original position
                 int originalRow = p.getRow();
                 int originalColumn = p.getColumn();
+                //note down content of target square
                 Piece temp = Board.getPiece(r, c);
+                //simulate move
                 Board.movePiece(p.getRow(), p.getColumn(), r, c);
+                //if after move king is no longer in check
                 if(!isInCheck(Board.getRed()))
                 {
                   Board.movePiece(r, c, originalRow, originalColumn);
                   Board.setPiece(r, c, temp);
-                  System.out.println("green not checkmate!!!!!");
-                  System.out.println("piece on " + originalRow + " " + originalColumn);
-                  System.out.println("went to " + r + " " + c);
+                  //System.out.println("green not checkmate!!!!!");
+                  //System.out.println("piece on " + originalRow + " " + originalColumn);
+                  //System.out.println("went to " + r + " " + c);
                   return false;
                 }
                 Board.movePiece(r, c, originalRow, originalColumn);
@@ -166,9 +172,9 @@ public class King extends Piece
                 {
                   Board.movePiece(r, c, originalRow, originalColumn);
                   Board.setPiece(r, c, temp);
-                  System.out.println("red not checkmate!!!!!");
-                  System.out.println("piece on " + originalRow + " " + originalColumn);
-                  System.out.println("went to " + r + " " + c);
+                  //System.out.println("red not checkmate!!!!!");
+                  //System.out.println("piece on " + originalRow + " " + originalColumn);
+                  //System.out.println("went to " + r + " " + c);
                   return false;
                 }
                 Board.movePiece(r, c, originalRow, originalColumn);
@@ -179,8 +185,13 @@ public class King extends Piece
         }
       }
     }
-    System.out.println("checkmate!!!!!! *default dances*");
+    //System.out.println("checkmate!!!!!! *default dances*");
     return true;
+  }
+
+  public String toString()
+  {
+    return "King";
   }
 
   

@@ -47,4 +47,9 @@ public class Piece
   {
     return false;
   }
+
+  public String toString()
+  {
+    return "";
+  }
 }

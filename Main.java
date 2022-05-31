@@ -1,3 +1,4 @@
+import javax.swing.JFrame;
 import java.util.*;
 public class Main {
   static boolean turn = true;
@@ -5,8 +6,24 @@ public class Main {
   static boolean flipped = false;
   static int kingsFacingTurns = 0;
   static boolean facingDraw = false;
+  static Piece temp;
+
+
+  /* WELCOME TO THE FILES! YOU HAVE UNLOCKED SECRET: FLIP BOARD
+
+  Enter:
+  6
+  12
+  9
+  16
+  
+  You will flip the board and therefore resign.
+
+  Enjoy reading the rest of the dumpster that is the code.
+  */
   
   public static void main(String[] args) {
+    new MyFrame();
     Scanner in = new Scanner(System.in);
     Board b = new Board();
     System.out.println("Welcome to Korean chess!");
@@ -86,45 +103,45 @@ public class Main {
           System.out.println(ConsoleColors.GREEN + "--Green--" + ConsoleColors.RESET);
           System.out.println("Enter row of start: ");
           int r1 = in.nextInt();
-          if (r1 == 10)
+          if (r1 == -1)
           {
-            Board.flipBoard();
-            flipped = true;
-            break game;
+            turn = !turn;
+            System.out.println(ConsoleColors.GREEN + "Green passed." + ConsoleColors.RESET);
+            continue;
           }
           System.out.println("Enter column of start: ");
           int c1 = in.nextInt();
-          if (c1 == 10)
+          if (c1 == -1)
           {
-            Board.flipBoard();
-            flipped = true;
-            break game;
+            turn = !turn;
+            System.out.println(ConsoleColors.GREEN + "Green passed." + ConsoleColors.RESET);
+            continue;
           }
           System.out.println("Enter row of end: ");
           int r2 = in.nextInt();
-          if (r2 == 10)
+          if (r2 == -1)
           {
-            Board.flipBoard();
-            flipped = true;
-            break game;
+            turn = !turn;
+            System.out.println(ConsoleColors.GREEN + "Green passed." + ConsoleColors.RESET);
+            continue;
           }
           System.out.println("Enter column of end: ");
           int c2 = in.nextInt();
-          if (c2 == 10)
+          if (c2 == -1)
+          {
+            turn = !turn;
+            System.out.println(ConsoleColors.GREEN + "Green passed." + ConsoleColors.RESET);
+            continue;
+          }
+
+          if(r1 == 6 && c1 == 12 && r2 == 9 && c2 == 16)
           {
             Board.flipBoard();
             flipped = true;
             break game;
           }
 
-          Piece temp = Board.getPiece(r2, c2);
-          Board.movePiece(r1, c1, r2, c2);
-          if(Board.getGreenKing().isInCheck(Board.getRed()))
-          {
-            suicideMove = true;
-          }
-          Board.movePiece(r2, c2, r1, c1);
-          Board.setPiece(r2, c2, temp);
+          checkForSuicideMove(r1, c1, r2, c2);
           
           if(kingsFacingDraw(r1, c1, r2, c2))
           {
@@ -136,45 +153,45 @@ public class Main {
             System.out.println(ConsoleColors.GREEN + "--Green--" + ConsoleColors.RESET);
             System.out.println("Enter row of start: ");
             r1 = in.nextInt();
-            if (r1 == 10){
-              Board.flipBoard();
-              flipped = true;
-              break game;
+            if (r1 == -1)
+            {
+              turn = !turn;
+              System.out.println(ConsoleColors.GREEN + "Green passed." + ConsoleColors.RESET);
+              continue;
             }
             System.out.println("Enter column of start: ");
             c1 = in.nextInt();
-            if (c1 == 10)
+            if (c1 == -1)
             {
-              Board.flipBoard();
-              flipped = true;
-              break game;
+              turn = !turn;
+              System.out.println(ConsoleColors.GREEN + "Green passed." + ConsoleColors.RESET);
+              continue;
             }
             System.out.println("Enter row of end: ");
             r2 = in.nextInt();
-            if (c1 == 10)
+            if (r2 == -1)
             {
-              Board.flipBoard();
-              flipped = true;
-              break game;
+              turn = !turn;
+              System.out.println(ConsoleColors.GREEN + "Green passed." + ConsoleColors.RESET);
+              continue;
             }
             System.out.println("Enter column of end: ");
             c2 = in.nextInt();
-              if (c1 == 10)
+            if (c2 == -1)
+            {
+              turn = !turn;
+              System.out.println(ConsoleColors.GREEN + "Green passed." + ConsoleColors.RESET);
+              continue;
+            }
+
+            if(r1 == 6 && c1 == 12 && r2 == 9 && c2 == 16)
             {
               Board.flipBoard();
               flipped = true;
               break game;
             }
   
-            suicideMove = false;
-            temp = Board.getPiece(r2, c2);
-            Board.movePiece(r1, c1, r2, c2);
-            if(Board.getGreenKing().isInCheck(Board.getRed()))
-            {
-              suicideMove = true;
-            }
-            Board.movePiece(r2, c2, r1, c1);
-            Board.setPiece(r2, c2, temp);
+            checkForSuicideMove(r1, c1, r2, c2);
             
             if(kingsFacingDraw(r1, c1, r2, c2))
             {
@@ -193,44 +210,45 @@ public class Main {
           System.out.println(ConsoleColors.RED + "--Red--" + ConsoleColors.RESET);
           System.out.println("Enter row of start: ");
           int r1 = in.nextInt();
-          if (r1 == 10){
-            Board.flipBoard();
-            flipped = true;
-            break game;
+          if (r1 == -1)
+          {
+            turn = !turn;
+            System.out.println(ConsoleColors.RED + "Red passed." + ConsoleColors.RESET);
+            continue;
           }
           System.out.println("Enter column of start: ");
           int c1 = in.nextInt();
-          if (c1 == 10)
+          if (c1 == -1)
           {
-            Board.flipBoard();
-            flipped = true;
-            break game;
+            turn = !turn;
+            System.out.println(ConsoleColors.RED + "Red passed." + ConsoleColors.RESET);
+            continue;
           }
           System.out.println("Enter row of end: ");
           int r2 = in.nextInt();
-          if (c1 == 10)
+          if (r2 == -1)
           {
-            Board.flipBoard();
-            flipped = true;
-            break game;
+            turn = !turn;
+            System.out.println(ConsoleColors.RED + "Red passed." + ConsoleColors.RESET);
+            continue;
           }
           System.out.println("Enter column of end: ");
           int c2 = in.nextInt();
-            if (c1 == 10)
+          if (c2 == -1)
+          {
+            turn = !turn;
+            System.out.println(ConsoleColors.RED + "Red passed." + ConsoleColors.RESET);
+            continue;
+          }
+
+          if(r1 == 6 && c1 == 12 && r2 == 9 && c2 == 16)
           {
             Board.flipBoard();
             flipped = true;
             break game;
           }
-
-          Piece temp = Board.getPiece(r2, c2);
-          Board.movePiece(r1, c1, r2, c2);
-          if(Board.getRedKing().isInCheck(Board.getGreen()))
-          {
-            suicideMove = true;
-          }
-          Board.movePiece(r2, c2, r1, c1);
-          Board.setPiece(r2, c2, temp);
+          
+          checkForSuicideMove(r1, c1, r2, c2);
 
           if(kingsFacingDraw(r1, c1, r2, c2))
           {
@@ -242,45 +260,45 @@ public class Main {
             System.out.println(ConsoleColors.RED + "--RED--" + ConsoleColors.RESET);
             System.out.println("Enter row of start: ");
             r1 = in.nextInt();
-            if (r1 == 10){
-              Board.flipBoard();
-              flipped = true;
-              break game;
+            if (r1 == -1)
+            {
+              turn = !turn;
+              System.out.println(ConsoleColors.RED + "Red passed." + ConsoleColors.RESET);
+              continue;
             }
             System.out.println("Enter column of start: ");
             c1 = in.nextInt();
-            if (c1 == 10)
+            if (c1 == -1)
             {
-              Board.flipBoard();
-              flipped = true;
-              break game;
+              turn = !turn;
+              System.out.println(ConsoleColors.RED + "Red passed." + ConsoleColors.RESET);
+              continue;
             }
             System.out.println("Enter row of end: ");
             r2 = in.nextInt();
-            if (c1 == 10)
+            if (r2 == -1)
             {
-              Board.flipBoard();
-              flipped = true;
-              break game;
+              turn = !turn;
+              System.out.println(ConsoleColors.RED + "Red passed." + ConsoleColors.RESET);
+              continue;
             }
             System.out.println("Enter column of end: ");
             c2 = in.nextInt();
-            if (c1 == 10)
+            if (c2 == -1)
+            {
+              turn = !turn;
+              System.out.println(ConsoleColors.RED + "Red passed." + ConsoleColors.RESET);
+              continue;
+            }
+
+            if(r1 == 6 && c1 == 12 && r2 == 9 && c2 == 16)
             {
               Board.flipBoard();
               flipped = true;
               break game;
             }
   
-            suicideMove = false;
-            temp = Board.getPiece(r2, c2);
-            Board.movePiece(r1, c1, r2, c2);
-            if(Board.getRedKing().isInCheck(Board.getGreen()))
-            {
-              suicideMove = true;
-            }
-            Board.movePiece(r2, c2, r1, c1);
-            Board.setPiece(r2, c2, temp);
+            checkForSuicideMove(r1, c1, r2, c2);
 
             if(kingsFacingDraw(r1, c1, r2, c2))
             {
@@ -377,11 +395,11 @@ public class Main {
     }
     else if (Board.getGreenKing().isCheckmate())
     {
-      System.out.println("Red wins. Green sucks.");
+      System.out.println("Checkmate. Red wins. Green sucks.");
     }
     else if (Board.getRedKing().isCheckmate())
     {
-      System.out.println("Green wins. Red sucks.");
+      System.out.println("Checkmate. Green wins. Red sucks.");
     }
     else if (facingDraw)
     {
@@ -395,6 +413,7 @@ public class Main {
 
   public static boolean kingsFacingDraw(int r1, int c1, int r2, int c2)
   {
+    //System.out.println("kingsFacingDraw");
     boolean result = false;
     if (Board.getPiece(r1, c1) != null && Board.getPiece(r1, c1).canMove(r2, c2))
     {
@@ -426,6 +445,27 @@ public class Main {
       }
     }
     return result;
+  }
+
+  public static void checkForSuicideMove(int r1, int c1, int r2, int c2)
+  {
+    //System.out.println("running checkForSuicideMove");
+    suicideMove = false;
+    if(Board.getPiece(r1, c1) != null && Board.getPiece(r1, c1).canMove(r2, c2))
+    {
+      temp = Board.getPiece(r2, c2);
+      Board.movePiece(r1, c1, r2, c2);
+      if(turn && Board.getGreenKing().isInCheck(Board.getRed()))
+      {
+        suicideMove = true;
+      }
+      else if(!turn && Board.getRedKing().isInCheck(Board.getGreen()))
+      {
+        suicideMove = true;
+      }
+      Board.movePiece(r2, c2, r1, c1);
+      Board.setPiece(r2, c2, temp);
+    }
   }
     /*if (Board.getPiece(r1, c1) != null && Board.getPiece(r1, c1).canMove(r2, c2))
     {

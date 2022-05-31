@@ -193,4 +193,9 @@ public class Cannon extends Piece
     }
     return false;
   }
+
+  public String toString()
+  {
+    return "Cannon";
+  }
 }
