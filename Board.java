@@ -1,10 +1,15 @@
 import java.lang.Math;
 import java.util.ArrayList;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 public class Board
 {
   private static ArrayList<Piece> green = new ArrayList<Piece>();
   private static ArrayList<Piece> red = new ArrayList<Piece>();
   private static Piece[][] board;
+
+  //private static ImageIcon red_cannon = new ImageIcon("red_cannon.png");
   public Board()
   {
     board = new Piece[10][9];
@@ -157,6 +162,11 @@ public class Board
     return board[r][c];
   }
 
+
+  /*public static void printBoardGraphically()
+  {
+    
+  }*/
   
   public static void printBoard()
   {

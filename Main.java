@@ -7,6 +7,7 @@ public class Main {
   static int kingsFacingTurns = 0;
   static boolean facingDraw = false;
   static Piece temp;
+  static MyFrame frame;
 
 
   /* WELCOME TO THE FILES! YOU HAVE UNLOCKED SECRET: FLIP BOARD
@@ -21,11 +22,17 @@ public class Main {
 
   Enjoy reading the rest of the dumpster that is the code.
   */
+
+  /*public static MyFrame getFrame()
+  {
+    return frame;
+  }*/
   
   public static void main(String[] args) {
-    new MyFrame();
-    Scanner in = new Scanner(System.in);
     Board b = new Board();
+    frame = new MyFrame();
+    Scanner in = new Scanner(System.in);
+
     System.out.println("Welcome to Korean chess!");
     for (int i = 0; i < Board.getGreen().size(); i++)
     {
@@ -96,6 +103,7 @@ public class Main {
       while (!Board.getGreenKing().isCheckmate() && !Board.getRedKing().isCheckmate())
       {
         Board.printBoard();
+        //Board.printBoardGraphically();
         
         //GREEN'S TURN
         if (turn)
