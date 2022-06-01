@@ -99,6 +99,7 @@ public class Main {
     }
     System.out.println();
 
+    MyFrame.printAllPieces();
     game:
       while (!Board.getGreenKing().isCheckmate() && !Board.getRedKing().isCheckmate())
       {
@@ -153,6 +154,7 @@ public class Main {
           
           if(kingsFacingDraw(r1, c1, r2, c2))
           {
+            MyFrame.updateMovedPieces(r1, c1, r2, c2);
             break game;
           }
           while (Board.getPiece(r1, c1) == null || Board.getPiece(r1, c1).getTeam() == false || !Board.getPiece(r1, c1).canMove(r2, c2) || suicideMove)
@@ -203,10 +205,12 @@ public class Main {
             
             if(kingsFacingDraw(r1, c1, r2, c2))
             {
+              MyFrame.updateMovedPieces(r1, c1, r2, c2);
               break game;
             }
           }
-  
+
+          MyFrame.updateMovedPieces(r1, c1, r2, c2);
           Board.movePiece(r1, c1, r2, c2);
   
           System.out.println("You're smart");
@@ -260,6 +264,7 @@ public class Main {
 
           if(kingsFacingDraw(r1, c1, r2, c2))
           {
+            MyFrame.updateMovedPieces(r1, c1, r2, c2);
             break game;
           }
           while (Board.getPiece(r1, c1) == null || Board.getPiece(r1, c1).getTeam() == true || !Board.getPiece(r1, c1).canMove(r2, c2) || suicideMove)
@@ -310,11 +315,14 @@ public class Main {
 
             if(kingsFacingDraw(r1, c1, r2, c2))
             {
+              MyFrame.updateMovedPieces(r1, c1, r2, c2);
               break game;
             }
           }
-  
+
+          MyFrame.updateMovedPieces(r1, c1, r2, c2);
           Board.movePiece(r1, c1, r2, c2);
+          
   
           System.out.println("You're smart");
           
@@ -384,6 +392,7 @@ public class Main {
           }
         }
         System.out.println();
+        
       }
 
 
@@ -392,6 +401,7 @@ public class Main {
     Board.printBoard();
     if (flipped)
     {
+      MyFrame.printAllPieces();
       if (turn)
       {
         System.out.println("Green flipped the board. What a baby. Loser. Little wah wah infant poopy diapers.");
