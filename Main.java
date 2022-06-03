@@ -8,6 +8,8 @@ public class Main {
   static boolean facingDraw = false;
   static Piece temp;
   static MyFrame frame;
+  static int r1, c1, r2, c2;
+  static boolean firstTurn; //testing
 
 
   /* WELCOME TO THE FILES! YOU HAVE UNLOCKED SECRET: FLIP BOARD
@@ -99,7 +101,10 @@ public class Main {
     }
     System.out.println();
 
-    MyFrame.printAllPieces();
+    frame.printAllPieces();
+
+
+    
     game:
       while (!Board.getGreenKing().isCheckmate() && !Board.getRedKing().isCheckmate())
       {
@@ -109,9 +114,20 @@ public class Main {
         //GREEN'S TURN
         if (turn)
         {
+          frame.cleanCoordinates();
+
+          //STALL
+          while(frame.getRow() == -2 && frame.getColumn() == -2)
+            {
+              if (frame.getRow() != -2)
+              {
+                break;
+              }
+            }
+          r1 = frame.getRow();
+          c1 = frame.getColumn();
           System.out.println(ConsoleColors.GREEN + "--Green--" + ConsoleColors.RESET);
           System.out.println("Enter row of start: ");
-          int r1 = in.nextInt();
           if (r1 == -1)
           {
             turn = !turn;
@@ -119,15 +135,26 @@ public class Main {
             continue;
           }
           System.out.println("Enter column of start: ");
-          int c1 = in.nextInt();
           if (c1 == -1)
           {
             turn = !turn;
             System.out.println(ConsoleColors.GREEN + "Green passed." + ConsoleColors.RESET);
             continue;
           }
+
+          frame.cleanCoordinates();
+
+          //STALL
+          while(frame.getRow() == -2 && frame.getColumn() == -2)
+            {
+              if (frame.getRow() != -2)
+              {
+                break;
+              }
+            }
+          r2 = frame.getRow();
+          c2 = frame.getColumn();
           System.out.println("Enter row of end: ");
-          int r2 = in.nextInt();
           if (r2 == -1)
           {
             turn = !turn;
@@ -135,7 +162,6 @@ public class Main {
             continue;
           }
           System.out.println("Enter column of end: ");
-          int c2 = in.nextInt();
           if (c2 == -1)
           {
             turn = !turn;
@@ -160,9 +186,19 @@ public class Main {
           while (Board.getPiece(r1, c1) == null || Board.getPiece(r1, c1).getTeam() == false || !Board.getPiece(r1, c1).canMove(r2, c2) || suicideMove)
           {
             System.out.println("You're stupid.");
+            frame.cleanCoordinates();
+            //STALL
+          while(frame.getRow() == -2 && frame.getColumn() == -2)
+            {
+              if (frame.getRow() != -2)
+              {
+                break;
+              }
+            } 
+          r1 = frame.getRow();
+          c1 = frame.getColumn();
             System.out.println(ConsoleColors.GREEN + "--Green--" + ConsoleColors.RESET);
             System.out.println("Enter row of start: ");
-            r1 = in.nextInt();
             if (r1 == -1)
             {
               turn = !turn;
@@ -170,15 +206,25 @@ public class Main {
               continue;
             }
             System.out.println("Enter column of start: ");
-            c1 = in.nextInt();
             if (c1 == -1)
             {
               turn = !turn;
               System.out.println(ConsoleColors.GREEN + "Green passed." + ConsoleColors.RESET);
               continue;
             }
-            System.out.println("Enter row of end: ");
-            r2 = in.nextInt();
+
+            frame.cleanCoordinates();
+            //STALL
+          while(frame.getRow() == -2 && frame.getColumn() == -2)
+            {
+              if (frame.getRow() != -2)
+              {
+                break;
+              }
+            }
+            r2 = frame.getRow();
+            c2 = frame.getColumn();
+                       System.out.println("Enter row of end: ");
             if (r2 == -1)
             {
               turn = !turn;
@@ -186,7 +232,6 @@ public class Main {
               continue;
             }
             System.out.println("Enter column of end: ");
-            c2 = in.nextInt();
             if (c2 == -1)
             {
               turn = !turn;
@@ -219,9 +264,21 @@ public class Main {
         //RED'S TURN
         else
         {
+          frame.cleanCoordinates();
+
+          //STALL
+          while(frame.getRow() == -2 && frame.getColumn() == -2)
+            {
+              if (frame.getRow() != -2)
+              {
+                break;
+              }
+            }
+          r1 = frame.getRow();
+          c1 = frame.getColumn();
           System.out.println(ConsoleColors.RED + "--Red--" + ConsoleColors.RESET);
           System.out.println("Enter row of start: ");
-          int r1 = in.nextInt();
+          //if(MyFrame.getEntered())
           if (r1 == -1)
           {
             turn = !turn;
@@ -229,15 +286,24 @@ public class Main {
             continue;
           }
           System.out.println("Enter column of start: ");
-          int c1 = in.nextInt();
           if (c1 == -1)
           {
             turn = !turn;
             System.out.println(ConsoleColors.RED + "Red passed." + ConsoleColors.RESET);
             continue;
           }
+          frame.cleanCoordinates(); 
+          //STALL
+          while(frame.getRow() == -2 && frame.getColumn() == -2)
+            {
+              if (frame.getRow() != -2)
+              {
+                break;
+              }
+            }
+          r2 = frame.getRow();
+          c2 = frame.getColumn();
           System.out.println("Enter row of end: ");
-          int r2 = in.nextInt();
           if (r2 == -1)
           {
             turn = !turn;
@@ -245,7 +311,6 @@ public class Main {
             continue;
           }
           System.out.println("Enter column of end: ");
-          int c2 = in.nextInt();
           if (c2 == -1)
           {
             turn = !turn;
@@ -270,9 +335,19 @@ public class Main {
           while (Board.getPiece(r1, c1) == null || Board.getPiece(r1, c1).getTeam() == true || !Board.getPiece(r1, c1).canMove(r2, c2) || suicideMove)
           {
             System.out.println("You're stupid.");
+            frame.cleanCoordinates();
+            //STALL
+          while(frame.getRow() == -2 && frame.getColumn() == -2)
+            {
+              if (frame.getRow() != -2)
+              {
+                break;
+              }
+            }
+            r1 = frame.getRow();
+            c1 = frame.getColumn();
             System.out.println(ConsoleColors.RED + "--RED--" + ConsoleColors.RESET);
             System.out.println("Enter row of start: ");
-            r1 = in.nextInt();
             if (r1 == -1)
             {
               turn = !turn;
@@ -280,15 +355,24 @@ public class Main {
               continue;
             }
             System.out.println("Enter column of start: ");
-            c1 = in.nextInt();
             if (c1 == -1)
             {
               turn = !turn;
               System.out.println(ConsoleColors.RED + "Red passed." + ConsoleColors.RESET);
               continue;
             }
+            frame.cleanCoordinates();
+            //STALL
+          while(frame.getRow() == -2 && frame.getColumn() == -2)
+            {
+              if (frame.getRow() != -2)
+              {
+                break;
+              }
+            }
+            r2 = frame.getRow();
+            c2 = frame.getColumn();
             System.out.println("Enter row of end: ");
-            r2 = in.nextInt();
             if (r2 == -1)
             {
               turn = !turn;
@@ -296,7 +380,6 @@ public class Main {
               continue;
             }
             System.out.println("Enter column of end: ");
-            c2 = in.nextInt();
             if (c2 == -1)
             {
               turn = !turn;
@@ -315,12 +398,12 @@ public class Main {
 
             if(kingsFacingDraw(r1, c1, r2, c2))
             {
-              MyFrame.updateMovedPieces(r1, c1, r2, c2);
+              frame.updateMovedPieces(r1, c1, r2, c2);
               break game;
             }
           }
 
-          MyFrame.updateMovedPieces(r1, c1, r2, c2);
+          frame.updateMovedPieces(r1, c1, r2, c2);
           Board.movePiece(r1, c1, r2, c2);
           
   
@@ -401,7 +484,7 @@ public class Main {
     Board.printBoard();
     if (flipped)
     {
-      MyFrame.printAllPieces();
+      frame.printAllPieces();
       if (turn)
       {
         System.out.println("Green flipped the board. What a baby. Loser. Little wah wah infant poopy diapers.");
@@ -413,10 +496,12 @@ public class Main {
     }
     else if (Board.getGreenKing().isCheckmate())
     {
+
       System.out.println("Checkmate. Red wins. Green sucks.");
     }
     else if (Board.getRedKing().isCheckmate())
     {
+
       System.out.println("Checkmate. Green wins. Red sucks.");
     }
     else if (facingDraw)

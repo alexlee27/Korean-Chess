@@ -2,11 +2,105 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class MyFrame extends JFrame
+public class MyFrame extends JFrame implements MouseListener
 {
   static JLabel[][] graphicalPieces = new JLabel[10][9];
+  JLabel place1 = new JLabel();
+  JLabel place2 = new JLabel();
+  JLabel place3 = new JLabel();
+  JLabel place4 = new JLabel();
+  JLabel place5 = new JLabel();
+  JLabel place6 = new JLabel();
+  JLabel place7 = new JLabel();
+  JLabel place8 = new JLabel();
+  JLabel place9 = new JLabel();
+  JLabel place10 = new JLabel();
+  JLabel place11 = new JLabel();
+  JLabel place12 = new JLabel();
+  JLabel place13 = new JLabel();
+  JLabel place14 = new JLabel();
+  JLabel place15 = new JLabel();
+  JLabel place16 = new JLabel();
+  JLabel place17 = new JLabel();
+  JLabel place18 = new JLabel();
+  JLabel place19 = new JLabel();
+  JLabel place20 = new JLabel();
+  JLabel place21 = new JLabel();
+  JLabel place22 = new JLabel();
+  JLabel place23 = new JLabel();
+  JLabel place24 = new JLabel();
+  JLabel place25 = new JLabel();
+  JLabel place26 = new JLabel();
+  JLabel place27 = new JLabel();
+  JLabel place28 = new JLabel();
+  JLabel place29 = new JLabel();
+  JLabel place30 = new JLabel();
+  JLabel place31 = new JLabel();
+  JLabel place32 = new JLabel();
+  JLabel place33 = new JLabel();
+  JLabel place34 = new JLabel();
+  JLabel place35 = new JLabel();
+  JLabel place36 = new JLabel();
+  JLabel place37 = new JLabel();
+  JLabel place38 = new JLabel();
+  JLabel place39 = new JLabel();
+  JLabel place40 = new JLabel();
+  JLabel place41 = new JLabel();
+  JLabel place42 = new JLabel();
+  JLabel place43 = new JLabel();
+  JLabel place44 = new JLabel();
+  JLabel place45 = new JLabel();
+  JLabel place46 = new JLabel();
+  JLabel place47 = new JLabel();
+  JLabel place48 = new JLabel();
+  JLabel place49 = new JLabel();
+  JLabel place50 = new JLabel();
+  JLabel place51 = new JLabel();
+  JLabel place52 = new JLabel();
+  JLabel place53 = new JLabel();
+  JLabel place54 = new JLabel();
+  JLabel place55 = new JLabel();
+  JLabel place56 = new JLabel();
+  JLabel place57 = new JLabel();
+  JLabel place58 = new JLabel();
+  JLabel place59 = new JLabel();
+  JLabel place60 = new JLabel();
+  JLabel place61 = new JLabel();
+  JLabel place62 = new JLabel();
+  JLabel place63 = new JLabel();
+  JLabel place64 = new JLabel();
+  JLabel place65 = new JLabel();
+  JLabel place66 = new JLabel();
+  JLabel place67 = new JLabel();
+  JLabel place68 = new JLabel();
+  JLabel place69 = new JLabel();
+  JLabel place70 = new JLabel();
+  JLabel place71 = new JLabel();
+  JLabel place72 = new JLabel();
+  JLabel place73 = new JLabel();
+  JLabel place74 = new JLabel();
+  JLabel place75 = new JLabel();
+  JLabel place76 = new JLabel();
+  JLabel place77 = new JLabel();
+  JLabel place78 = new JLabel();
+  JLabel place79 = new JLabel();
+  JLabel place80 = new JLabel();
+  JLabel place81 = new JLabel();
+  JLabel place82 = new JLabel();
+  JLabel place83 = new JLabel();
+  JLabel place84 = new JLabel();
+  JLabel place85 = new JLabel();
+  JLabel place86 = new JLabel();
+  JLabel place87 = new JLabel();
+  JLabel place88 = new JLabel();
+  JLabel place89 = new JLabel();
+  JLabel place90 = new JLabel();
   JPanel piecePanel;
-  private ImageIcon red_cannon = new ImageIcon("red_cannon.png");
+
+  private int row = -2;
+  private int column = -2; 
+
+  //CONSTRUCTOR
   public MyFrame (){
     this.setTitle("Janggi Game");
     this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -24,100 +118,6 @@ public class MyFrame extends JFrame
     piecePanel.setOpaque(false);
     
     piecePanel.setLayout(new GridLayout(10,9,0,0));
-
-    
-
-    JLabel place1 = new JLabel();
-    JLabel place2 = new JLabel();
-    JLabel place3 = new JLabel();
-    JLabel place4 = new JLabel();
-    JLabel place5 = new JLabel();
-    JLabel place6 = new JLabel();
-    JLabel place7 = new JLabel();
-    JLabel place8 = new JLabel();
-    JLabel place9 = new JLabel();
-    JLabel place10 = new JLabel();
-    JLabel place11 = new JLabel();
-    JLabel place12 = new JLabel();
-    JLabel place13 = new JLabel();
-    JLabel place14 = new JLabel();
-    JLabel place15 = new JLabel();
-    JLabel place16 = new JLabel();
-    JLabel place17 = new JLabel();
-    JLabel place18 = new JLabel();
-    JLabel place19 = new JLabel();
-    JLabel place20 = new JLabel();
-    JLabel place21 = new JLabel();
-    JLabel place22 = new JLabel();
-    JLabel place23 = new JLabel();
-    JLabel place24 = new JLabel();
-    JLabel place25 = new JLabel();
-    JLabel place26 = new JLabel();
-    JLabel place27 = new JLabel();
-    JLabel place28 = new JLabel();
-    JLabel place29 = new JLabel();
-    JLabel place30 = new JLabel();
-    JLabel place31 = new JLabel();
-    JLabel place32 = new JLabel();
-    JLabel place33 = new JLabel();
-    JLabel place34 = new JLabel();
-    JLabel place35 = new JLabel();
-    JLabel place36 = new JLabel();
-    JLabel place37 = new JLabel();
-    JLabel place38 = new JLabel();
-    JLabel place39 = new JLabel();
-    JLabel place40 = new JLabel();
-    JLabel place41 = new JLabel();
-    JLabel place42 = new JLabel();
-    JLabel place43 = new JLabel();
-    JLabel place44 = new JLabel();
-    JLabel place45 = new JLabel();
-    JLabel place46 = new JLabel();
-    JLabel place47 = new JLabel();
-    JLabel place48 = new JLabel();
-    JLabel place49 = new JLabel();
-    JLabel place50 = new JLabel();
-    JLabel place51 = new JLabel();
-    JLabel place52 = new JLabel();
-    JLabel place53 = new JLabel();
-    JLabel place54 = new JLabel();
-    JLabel place55 = new JLabel();
-    JLabel place56 = new JLabel();
-    JLabel place57 = new JLabel();
-    JLabel place58 = new JLabel();
-    JLabel place59 = new JLabel();
-    JLabel place60 = new JLabel();
-    JLabel place61 = new JLabel();
-    JLabel place62 = new JLabel();
-    JLabel place63 = new JLabel();
-    JLabel place64 = new JLabel();
-    JLabel place65 = new JLabel();
-    JLabel place66 = new JLabel();
-    JLabel place67 = new JLabel();
-    JLabel place68 = new JLabel();
-    JLabel place69 = new JLabel();
-    JLabel place70 = new JLabel();
-    JLabel place71 = new JLabel();
-    JLabel place72 = new JLabel();
-    JLabel place73 = new JLabel();
-    JLabel place74 = new JLabel();
-    JLabel place75 = new JLabel();
-    JLabel place76 = new JLabel();
-    JLabel place77 = new JLabel();
-    JLabel place78 = new JLabel();
-    JLabel place79 = new JLabel();
-    JLabel place80 = new JLabel();
-    JLabel place81 = new JLabel();
-    JLabel place82 = new JLabel();
-    JLabel place83 = new JLabel();
-    JLabel place84 = new JLabel();
-    JLabel place85 = new JLabel();
-    JLabel place86 = new JLabel();
-    JLabel place87 = new JLabel();
-    JLabel place88 = new JLabel();
-    JLabel place89 = new JLabel();
-    JLabel place90 = new JLabel();
-
 
 
     graphicalPieces[0][0] = place1;
@@ -225,6 +225,7 @@ public class MyFrame extends JFrame
       for(int c = 0; c < 9; c++)
       {
         piecePanel.add(graphicalPieces[r][c]);
+        graphicalPieces[r][c].addMouseListener(this);
       }
     }
 
@@ -254,6 +255,8 @@ public class MyFrame extends JFrame
     this.setVisible(true);
 
   }
+  //END OF CONSTRUCTOR
+  
 
   public static void printAllPieces()
   {
@@ -354,4 +357,411 @@ public class MyFrame extends JFrame
     graphicalPieces[r1][c1].setVisible(false);
   }
 
+  
+  public int getRow()
+  {
+    return row;
+  }
+
+  public int getColumn()
+  {
+    return column;
+  }
+
+  public void cleanCoordinates()
+  {
+    row = -2;
+    column = -2;
+  }
+
+  
+  public void mouseClicked(MouseEvent e)
+  {
+    if(e.getSource() == place1)
+    {
+      row = 0;
+      column = 0;
+      System.out.println("place 1 clicked");
+    }
+    else if (e.getSource() == place2)
+    {
+      
+    }
+    else if (e.getSource() == place3)
+    {
+      
+    }
+    else if (e.getSource() == place4)
+    {
+      
+    }
+    else if (e.getSource() == place5)
+    {
+      
+    }
+    else if (e.getSource() == place6)
+    {
+      
+    }
+    else if (e.getSource() == place7)
+    {
+      
+    }
+    else if (e.getSource() == place8)
+    {
+      
+    }
+    else if (e.getSource() == place9)
+    {
+      
+    }
+    else if (e.getSource() == place10)
+    {
+      row = 1;
+      column = 0;
+      System.out.println("place 10 clicked");
+    }
+    else if (e.getSource() == place11)
+    {
+      
+    }
+    else if (e.getSource() == place12)
+    {
+      
+    }
+    else if (e.getSource() == place13)
+    {
+      
+    }
+    else if (e.getSource() == place14)
+    {
+      
+    }
+    else if (e.getSource() == place15)
+    {
+      
+    }
+    else if (e.getSource() == place16)
+    {
+      
+    }
+    else if (e.getSource() == place17)
+    {
+      
+    }
+    else if (e.getSource() == place18)
+    {
+      
+    }
+    else if (e.getSource() == place19)
+    {
+      
+    }
+    else if (e.getSource() == place20)
+    {
+      
+    }
+    else if (e.getSource() == place21)
+    {
+      
+    }
+    else if (e.getSource() == place22)
+    {
+      
+    }
+    else if (e.getSource() == place23)
+    {
+      
+    }
+    else if (e.getSource() == place24)
+    {
+      
+    }
+    else if (e.getSource() == place25)
+    {
+      
+    }
+    else if (e.getSource() == place26)
+    {
+      
+    }
+    else if (e.getSource() == place27)
+    {
+      
+    }
+    else if (e.getSource() == place28)
+    {
+      
+    }
+    else if (e.getSource() == place29)
+    {
+      
+    }
+    else if (e.getSource() == place30)
+    {
+      
+    }
+    else if (e.getSource() == place31)
+    {
+      
+    }
+    else if (e.getSource() == place32)
+    {
+      
+    }
+    else if (e.getSource() == place33)
+    {
+      
+    }
+    else if (e.getSource() == place34)
+    {
+      
+    }
+    else if (e.getSource() == place35)
+    {
+      
+    }
+    else if (e.getSource() == place36)
+    {
+      
+    }
+    else if (e.getSource() == place37)
+    {
+      
+    }
+    else if (e.getSource() == place38)
+    {
+      
+    }
+    else if (e.getSource() == place39)
+    {
+      
+    }
+    else if (e.getSource() == place40)
+    {
+      
+    }
+    else if (e.getSource() == place41)
+    {
+      
+    }
+    else if (e.getSource() == place42)
+    {
+      
+    }
+    else if (e.getSource() == place43)
+    {
+      
+    }
+    else if (e.getSource() == place44)
+    {
+      
+    }
+    else if (e.getSource() == place45)
+    {
+      
+    }
+    else if (e.getSource() == place46)
+    {
+      
+    }
+    else if (e.getSource() == place47)
+    {
+      
+    }
+    else if (e.getSource() == place48)
+    {
+      
+    }
+    else if (e.getSource() == place49)
+    {
+      
+    }
+    else if (e.getSource() == place50)
+    {
+      
+    }
+    else if (e.getSource() == place51)
+    {
+      
+    }
+    else if (e.getSource() == place52)
+    {
+      
+    }
+    else if (e.getSource() == place53)
+    {
+      
+    }
+    else if (e.getSource() == place54)
+    {
+      
+    }
+    else if (e.getSource() == place55)
+    {
+      row = 6;
+      column = 0;
+      System.out.println("place 55 clicked");
+    }
+    else if (e.getSource() == place56)
+    {
+      row = 6;
+      column = 1;
+      System.out.println("place 56 clicked");
+    }
+    else if (e.getSource() == place57)
+    {
+      
+    }
+    else if (e.getSource() == place58)
+    {
+      
+    }
+    else if (e.getSource() == place59)
+    {
+      
+    }
+    else if (e.getSource() == place60)
+    {
+      
+    }
+    else if (e.getSource() == place61)
+    {
+      
+    }
+    else if (e.getSource() == place62)
+    {
+      
+    }
+    else if (e.getSource() == place63)
+    {
+      
+    }
+    else if (e.getSource() == place64)
+    {
+      
+    }
+    else if (e.getSource() == place65)
+    {
+      
+    }
+    else if (e.getSource() == place66)
+    {
+      
+    }
+    else if (e.getSource() == place67)
+    {
+      
+    }
+    else if (e.getSource() == place68)
+    {
+      
+    }
+    else if (e.getSource() == place69)
+    {
+      
+    }
+    else if (e.getSource() == place70)
+    {
+      
+    }
+    else if (e.getSource() == place71)
+    {
+      
+    }
+    else if (e.getSource() == place72)
+    {
+      
+    }
+    else if (e.getSource() == place73)
+    {
+      
+    }
+    else if (e.getSource() == place74)
+    {
+      
+    }
+    else if (e.getSource() == place75)
+    {
+      
+    }
+    else if (e.getSource() == place76)
+    {
+      
+    }
+    else if (e.getSource() == place77)
+    {
+      
+    }
+    else if (e.getSource() == place78)
+    {
+      
+    }
+    else if (e.getSource() == place70)
+    {
+      
+    }
+    else if (e.getSource() == place80)
+    {
+      
+    }
+    else if (e.getSource() == place81)
+    {
+      
+    }
+    else if (e.getSource() == place82)
+    {
+      
+    }
+    else if (e.getSource() == place83)
+    {
+      
+    }
+    else if (e.getSource() == place84)
+    {
+      
+    }
+    else if (e.getSource() == place85)
+    {
+      
+    }
+    else if (e.getSource() == place86)
+    {
+      
+    }
+    else if (e.getSource() == place87)
+    {
+      
+    }
+    else if (e.getSource() == place88)
+    {
+      
+    }
+    else if (e.getSource() == place89)
+    {
+      
+    }
+    else if (e.getSource() == place90)
+    {
+      
+    }
+    
+  }
+  public void mouseEntered(MouseEvent e)
+  {
+    
+  }
+
+  public void mousePressed(MouseEvent e)
+  {
+    
+  }
+  public void mouseReleased(MouseEvent e)
+  {
+
+  }
+  public void mouseExited(MouseEvent e)
+  {
+    
+  }
 }
