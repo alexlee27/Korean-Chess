@@ -581,7 +581,6 @@ public class MyFrame extends JFrame implements MouseListener
 
   private boolean turn = true;
   private int clickTimes = 0;
-  private boolean suicideMove = false;
   //private boolean flipped = false;
   private int kingsFacingTurns = 0;
   private boolean facingDraw = false;
@@ -1052,30 +1051,33 @@ public class MyFrame extends JFrame implements MouseListener
         c1 = column;
         if (Board.getPiece(r1, c1) != null && Board.getPiece(r1, c1).getTeam() == turn)
         {
+          boolean validMoves = false;
           for (int r = 0; r < 10; r++)
           {
             for (int c = 0; c < 9; c++)
             {
-              if (Board.getPiece(r1, c1).canMove(r, c))
+              if (Board.getPiece(r1, c1).canMove(r, c) && !checkForSuicideMove(r1, c1, r, c))
               {
+                validMoves = true;
                 greyCircles[r][c].setVisible(true);
               }
             }
           }
-          clickTimes++;
+          if (validMoves)
+          {
+            clickTimes++;
+          }
         }
-        
       }
       else if(clickTimes == 1)
       {
         r2 = row;
         c2 = column;
-        checkForSuicideMove(r1, c1, r2, c2); 
         if(kingsFacingDraw(r1, c1, r2, c2))
         {
           updateMovedPieces(r1, c1, r2, c2);
         }
-        if(!(Board.getPiece(r1, c1) == null || Board.getPiece(r1, c1).getTeam() != turn || !Board.getPiece(r1, c1).canMove(r2, c2) || suicideMove))
+        if(!(Board.getPiece(r1, c1) == null || Board.getPiece(r1, c1).getTeam() != turn || !Board.getPiece(r1, c1).canMove(r2, c2) || checkForSuicideMove(r1, c1, r2, c2)))
         {
           updateMovedPieces(r1, c1, r2, c2);
           Board.movePiece(r1, c1, r2, c2);
@@ -1107,10 +1109,10 @@ public class MyFrame extends JFrame implements MouseListener
     }
   }
 
-  public void checkForSuicideMove(int r1, int c1, int r2, int c2)
+  public boolean checkForSuicideMove(int r1, int c1, int r2, int c2)
   {
     //System.out.println("running checkForSuicideMove");
-    suicideMove = false;
+    boolean suicideMove = false;
     if(Board.getPiece(r1, c1) != null && Board.getPiece(r1, c1).canMove(r2, c2))
     {
       Piece temp = Board.getPiece(r2, c2);
@@ -1126,6 +1128,7 @@ public class MyFrame extends JFrame implements MouseListener
       Board.movePiece(r2, c2, r1, c1);
       Board.setPiece(r2, c2, temp);
     }
+    return suicideMove;
   }
 
   public boolean kingsFacingDraw(int r1, int c1, int r2, int c2)
@@ -1138,14 +1141,14 @@ public class MyFrame extends JFrame implements MouseListener
       Board.movePiece(r1, c1, r2, c2);
       if(kingsFacingTurns == 0)
       {
-        if(!suicideMove && Board.kingsAreFacing())
+        if(!checkForSuicideMove(r1, c1, r2, c2) && Board.kingsAreFacing())
         {
           kingsFacingTurns++;
         }
       }
       else if(kingsFacingTurns == 1)
       {
-        if(!suicideMove && !Board.kingsAreFacing())
+        if(!checkForSuicideMove(r1, c1, r2, c2) && !Board.kingsAreFacing())
         {
           kingsFacingTurns = 0;
         }
