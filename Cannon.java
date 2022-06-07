@@ -40,7 +40,7 @@ public class Cannon extends Piece
             {
               piecesInBetween++;
             }
-            if (Board.getPiece(i, c) instanceof Cannon)
+            if (Board.getPiece(r, i) instanceof Cannon)
             {
               return false;
             }
@@ -69,7 +69,7 @@ public class Cannon extends Piece
             {
               piecesInBetween++;
             }
-            if (Board.getPiece(i, c) instanceof Cannon)
+            if (Board.getPiece(r, i) instanceof Cannon)
             {
               return false;
             }

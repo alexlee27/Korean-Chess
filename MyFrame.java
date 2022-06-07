@@ -1103,10 +1103,6 @@ public class MyFrame extends JFrame implements MouseListener
         {
           System.out.println("green wins");
         }
-
-
-        //PRINTING TO CONSOLE
-        Board.printBoard();
       }
     }
   }
