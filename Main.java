@@ -1,15 +1,15 @@
 import javax.swing.JFrame;
 import java.util.*;
 public class Main {
+  /*
   static boolean turn = true;
   static boolean suicideMove = false;
   static boolean flipped = false;
   static int kingsFacingTurns = 0;
   static boolean facingDraw = false;
-  static Piece temp;
-  static MyFrame frame;
   static int r1, c1, r2, c2;
   static boolean firstTurn; //testing
+  */
 
 
   /* WELCOME TO THE FILES! YOU HAVE UNLOCKED SECRET: FLIP BOARD
@@ -32,7 +32,8 @@ public class Main {
   
   public static void main(String[] args) {
     Board b = new Board();
-    frame = new MyFrame();
+    MyFrame frame = new MyFrame();
+    /*
     Scanner in = new Scanner(System.in);
 
     System.out.println("Welcome to Korean chess!");
@@ -116,14 +117,6 @@ public class Main {
         {
           frame.cleanCoordinates();
 
-          //STALL
-          while(frame.getRow() == -2 && frame.getColumn() == -2)
-            {
-              if (frame.getRow() != -2)
-              {
-                break;
-              }
-            }
           r1 = frame.getRow();
           c1 = frame.getColumn();
           System.out.println(ConsoleColors.GREEN + "--Green--" + ConsoleColors.RESET);
@@ -144,14 +137,6 @@ public class Main {
 
           frame.cleanCoordinates();
 
-          //STALL
-          while(frame.getRow() == -2 && frame.getColumn() == -2)
-            {
-              if (frame.getRow() != -2)
-              {
-                break;
-              }
-            }
           r2 = frame.getRow();
           c2 = frame.getColumn();
           System.out.println("Enter row of end: ");
@@ -187,14 +172,7 @@ public class Main {
           {
             System.out.println("You're stupid.");
             frame.cleanCoordinates();
-            //STALL
-          while(frame.getRow() == -2 && frame.getColumn() == -2)
-            {
-              if (frame.getRow() != -2)
-              {
-                break;
-              }
-            } 
+
           r1 = frame.getRow();
           c1 = frame.getColumn();
             System.out.println(ConsoleColors.GREEN + "--Green--" + ConsoleColors.RESET);
@@ -214,14 +192,7 @@ public class Main {
             }
 
             frame.cleanCoordinates();
-            //STALL
-          while(frame.getRow() == -2 && frame.getColumn() == -2)
-            {
-              if (frame.getRow() != -2)
-              {
-                break;
-              }
-            }
+
             r2 = frame.getRow();
             c2 = frame.getColumn();
                        System.out.println("Enter row of end: ");
@@ -266,14 +237,7 @@ public class Main {
         {
           frame.cleanCoordinates();
 
-          //STALL
-          while(frame.getRow() == -2 && frame.getColumn() == -2)
-            {
-              if (frame.getRow() != -2)
-              {
-                break;
-              }
-            }
+
           r1 = frame.getRow();
           c1 = frame.getColumn();
           System.out.println(ConsoleColors.RED + "--Red--" + ConsoleColors.RESET);
@@ -293,14 +257,7 @@ public class Main {
             continue;
           }
           frame.cleanCoordinates(); 
-          //STALL
-          while(frame.getRow() == -2 && frame.getColumn() == -2)
-            {
-              if (frame.getRow() != -2)
-              {
-                break;
-              }
-            }
+
           r2 = frame.getRow();
           c2 = frame.getColumn();
           System.out.println("Enter row of end: ");
@@ -336,14 +293,7 @@ public class Main {
           {
             System.out.println("You're stupid.");
             frame.cleanCoordinates();
-            //STALL
-          while(frame.getRow() == -2 && frame.getColumn() == -2)
-            {
-              if (frame.getRow() != -2)
-              {
-                break;
-              }
-            }
+
             r1 = frame.getRow();
             c1 = frame.getColumn();
             System.out.println(ConsoleColors.RED + "--RED--" + ConsoleColors.RESET);
@@ -362,14 +312,7 @@ public class Main {
               continue;
             }
             frame.cleanCoordinates();
-            //STALL
-          while(frame.getRow() == -2 && frame.getColumn() == -2)
-            {
-              if (frame.getRow() != -2)
-              {
-                break;
-              }
-            }
+
             r2 = frame.getRow();
             c2 = frame.getColumn();
             System.out.println("Enter row of end: ");
@@ -508,12 +451,10 @@ public class Main {
     {
       System.out.println("The game ended in a draw as the players agreed to let the kings face each other."); 
     }
-    
-    //System.out.println(Board.getGreenKing().isInCheck(Board.getRed()));
-   
-   //System.out.println(Board.getGreenKing().isInCheck(Board.getRed()));       //System.out.println(Board.getGreenKing().isCheckmate());
+  */
   }
 
+  /*
   public static boolean kingsFacingDraw(int r1, int c1, int r2, int c2)
   {
     //System.out.println("kingsFacingDraw");
@@ -570,55 +511,6 @@ public class Main {
       Board.setPiece(r2, c2, temp);
     }
   }
-    /*if (Board.getPiece(r1, c1) != null && Board.getPiece(r1, c1).canMove(r2, c2))
-    {
-      Board.movePiece(r1, c1, r2, c2);
-      if (Board.kingsAreFacing())
-      {
-        kingsFacingTurns++;
-      }
-      else
-      {
-        kingsFacingTurns = 0;
-      }
-      Board.movePiece(r2, c2, r1, c1);
-      Board.setPiece(r2, c2, temp);
-    }
-    if (kingsFacingTurns > 1)
-    {
-      Board.printBoard();
-      System.out.println("Players have agreed to draw."); 
-      result = true;
-    }*/
+  */
 
 }
-
-
-
-//After attempting move:
-
-//1st case: suicideMove, doesn't face the kings, count 0
-//kingsFacingTurn stays the same
-
-
-//2nd case: not a suicideMove, doesn't face the kings, count 0
-//shouldn't do anything
-
-//3rd case: not a suicideMove, faces the kings, count 0
-//kingsFacingTurn++
-
-//4th: suicideMove, faces the kings, count 0
-//kingsFacingTurn stays the same
-
-//5TH case: suicideMove, doesn't face the kings, count 1
-//kingsFacingTurn stays the same
-
-//6th case: not a suicideMove, doesn't face the kings, count 1
-//kingsFacingTurn = 0;
-
-
-//7th case: not a suicideMove, faces the kings, count 1
-//end game
-
-//8th: suicideMove, faces the kings, count 1
-//end game
