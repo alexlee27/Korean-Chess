@@ -985,7 +985,7 @@ public class MyFrame extends JFrame implements MouseListener
         row = 8;
         column = 5;
       }
-      else if (e.getSource() == place70)
+      else if (e.getSource() == place79)
       {
         row = 8;
         column = 6;
@@ -1128,6 +1128,7 @@ public class MyFrame extends JFrame implements MouseListener
       Board.movePiece(r2, c2, r1, c1);
       Board.setPiece(r2, c2, temp);
     }
+    System.out.println(suicideMove);
     return suicideMove;
   }
 
