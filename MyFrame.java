@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+
 public class MyFrame extends JFrame implements MouseListener
 {
   static JLabel[][] graphicalPieces = new JLabel[10][9];
@@ -190,6 +191,27 @@ public class MyFrame extends JFrame implements MouseListener
   JLabel greyCircle90 = new JLabel();
   JPanel greyCirclePanel;
 
+  JLabel turnIndicator = new JLabel();
+
+  JLabel pass = new JLabel();
+
+  JLabel swap1 = new JLabel();
+  JLabel swap2 = new JLabel();
+  JLabel swap3 = new JLabel();
+  JLabel swap4 = new JLabel();
+  JLabel confirm = new JLabel();
+
+  JLabel redResign = new JLabel();
+  JLabel greenResign = new JLabel();
+
+  JLabel redWin = new JLabel();
+  JLabel greenWin = new JLabel();
+  JLabel draw = new JLabel();
+
+  JLabel flip = new JLabel();
+
+  boolean started = false;
+
   /*
   private int row = -2;
   private int column = -2; 
@@ -204,6 +226,25 @@ public class MyFrame extends JFrame implements MouseListener
 
     JLayeredPane layeredPane = new JLayeredPane();
     layeredPane.setBounds(0,0,540,600);
+
+
+    redWin.setBounds(90, 240, 360, 120);
+    redWin.setIcon(new ImageIcon("redWin.png"));
+    redWin.addMouseListener(this);
+    redWin.setVisible(false);
+    this.add(redWin);
+
+    greenWin.setBounds(90, 240, 360, 120);
+    greenWin.setIcon(new ImageIcon("greenWin.png"));
+    greenWin.addMouseListener(this);
+    greenWin.setVisible(false);
+    this.add(greenWin);
+
+    draw.setBounds(90, 240, 360, 120);
+    draw.setIcon(new ImageIcon("draw.png"));
+    draw.addMouseListener(this);
+    draw.setVisible(false);
+    this.add(draw);
     
     //put grey circle stuff here
     greyCirclePanel = new JPanel();
@@ -444,9 +485,63 @@ public class MyFrame extends JFrame implements MouseListener
       }
     }
 
+
+    swap1.setBounds(360, 60, 120, 60);
+    swap2.setBounds(60, 60, 120, 60);
+    swap3.setBounds(60, 480, 120, 60);
+    swap4.setBounds(360, 480, 120, 60);
+
+    swap1.setIcon(new ImageIcon("swap_arrow_red.png"));
+    swap2.setIcon(new ImageIcon("swap_arrow_red.png"));
+    swap3.setIcon(new ImageIcon("swap_arrow_green.png"));
+    swap4.setIcon(new ImageIcon("swap_arrow_green.png"));
+
+    swap1.addMouseListener(this);
+    swap2.addMouseListener(this);
+    swap3.addMouseListener(this);
+    swap4.addMouseListener(this);
+
+    this.add(swap1);
+    this.add(swap2);
+    this.add(swap3);
+    this.add(swap4);
+
+    confirm.setBounds(180, 270, 180, 60);
+    confirm.setIcon(new ImageIcon("confirm.png"));
+    confirm.addMouseListener(this);
+    this.add(confirm);
     
 
-  
+    pass.setBounds(620, 270, 100, 60);
+    pass.setIcon(new ImageIcon("pass.png"));
+    pass.addMouseListener(this);
+    pass.setVisible(false);
+    this.add(pass);
+
+    redResign.setBounds(610, 90, 120, 60);
+    redResign.setIcon(new ImageIcon("redResign.png"));
+    redResign.addMouseListener(this);
+    redResign.setVisible(false);
+    this.add(redResign);
+
+    greenResign.setBounds(610, 450, 120, 60);
+    greenResign.setIcon(new ImageIcon("greenResign.png"));
+    greenResign.addMouseListener(this);
+    greenResign.setVisible(false);
+    this.add(greenResign);
+
+    flip.setBounds(780, 580, 10, 10);
+    flip.setIcon(new ImageIcon("greenFlip.png"));
+    flip.addMouseListener(this);
+    flip.setVisible(false);
+    this.add(flip);
+
+
+    turnIndicator.setBounds(540, 0, 260, 600);
+    turnIndicator.setIcon(new ImageIcon("greyEnd.png"));
+    this.add(turnIndicator);
+
+    
 
     JLabel label = new JLabel();
     label.setBounds(0, 0, 540, 600);
@@ -463,8 +558,7 @@ public class MyFrame extends JFrame implements MouseListener
     layeredPane.add(label);
 
     this.add(layeredPane);
-    
-    
+
 
 
     ImageIcon image = new ImageIcon("red_king.png");
@@ -475,7 +569,6 @@ public class MyFrame extends JFrame implements MouseListener
 
   }
   //END OF CONSTRUCTOR
-  
 
   public static void printAllPieces()
   {
@@ -588,502 +681,56 @@ public class MyFrame extends JFrame implements MouseListener
   
   public void mouseClicked(MouseEvent e)
   {
-    if (!(facingDraw || Board.getGreenKing().isCheckmate() || Board.getRedKing().isCheckmate()))
+    if (e.getSource() == redWin)
+    {
+      redWin.setVisible(false);
+    }
+
+    else if (e.getSource() == greenWin)
+    {
+      greenWin.setVisible(false);
+    }
+
+    else if (e.getSource() == draw)
+    {
+      draw.setVisible(false);
+    }
+    
+    else if (!(facingDraw || Board.getGreenKing().isCheckmate() || Board.getRedKing().isCheckmate()))
     {
       int row = 0;
       int column = 0;
       
-    
-      
-      if(e.getSource() == place1)
-      {
-        row = 0;
-        column = 0;
-      }
-      else if (e.getSource() == place2)
-      {
-        row = 0;
-        column = 1;
-      }
-      else if (e.getSource() == place3)
-      {
-        row = 0;
-        column = 2;
-      }
-      else if (e.getSource() == place4)
-      {
-        row = 0;
-        column = 3;
-      }
-      else if (e.getSource() == place5)
-      {
-        row = 0;
-        column = 4;
-      }
-      else if (e.getSource() == place6)
-      {
-        row = 0;
-        column = 5;
-      }
-      else if (e.getSource() == place7)
-      {
-        row = 0;
-        column = 6;
-      }
-      else if (e.getSource() == place8)
-      {
-        row = 0;
-        column = 7;
-      }
-      else if (e.getSource() == place9)
-      {
-        row = 0;
-        column = 8;
-      }
-      else if (e.getSource() == place10)
-      {
-        row = 1;
-        column = 0;
-      }
-      else if (e.getSource() == place11)
-      {
-        row = 1;
-        column = 1;
-      }
-      else if (e.getSource() == place12)
-      {
-        row = 1;
-        column = 2;
-      }
-      else if (e.getSource() == place13)
-      {
-        row = 1;
-        column = 3;
-      }
-      else if (e.getSource() == place14)
-      {
-        row = 1;
-        column = 4;
-      }
-      else if (e.getSource() == place15)
-      {
-        row = 1;
-        column = 5;
-      }
-      else if (e.getSource() == place16)
-      {
-        row = 1;
-        column = 6;
-      }
-      else if (e.getSource() == place17)
-      {
-        row = 1;
-        column = 7;
-      }
-      else if (e.getSource() == place18)
-      {
-        row = 1;
-        column = 8;
-      }
-      else if (e.getSource() == place19)
-      {
-        row = 2;
-        column = 0;
-      }
-      else if (e.getSource() == place20)
-      {
-        row = 2;
-        column = 1;
-      }
-      else if (e.getSource() == place21)
-      {
-        row = 2;
-        column = 2;
-      }
-      else if (e.getSource() == place22)
-      {
-        row = 2;
-        column = 3;
-      }
-      else if (e.getSource() == place23)
-      {
-        row = 2;
-        column = 4;
-      }
-      else if (e.getSource() == place24)
-      {
-        row = 2;
-        column = 5;
-      }
-      else if (e.getSource() == place25)
-      {
-        row = 2;
-        column = 6;
-      }
-      else if (e.getSource() == place26)
-      {
-        row = 2;
-        column = 7;
-      }
-      else if (e.getSource() == place27)
-      {
-        row = 2;
-        column = 8;
-      }
-      else if (e.getSource() == place28)
-      {
-        row = 3;
-        column = 0;
-      }
-      else if (e.getSource() == place29)
-      {
-        row = 3;
-        column = 1;
-      }
-      else if (e.getSource() == place30)
-      {
-        row = 3;
-        column = 2;
-      }
-      else if (e.getSource() == place31)
-      {
-        row = 3;
-        column = 3;
-      }
-      else if (e.getSource() == place32)
-      {
-        row = 3;
-        column = 4;
-      }
-      else if (e.getSource() == place33)
-      {
-        row = 3;
-        column = 5;
-      }
-      else if (e.getSource() == place34)
-      {
-        row = 3;
-        column = 6;
-      }
-      else if (e.getSource() == place35)
-      {
-        row = 3;
-        column = 7;
-      }
-      else if (e.getSource() == place36)
-      {
-        row = 3;
-        column = 8;
-      }
-      else if (e.getSource() == place37)
-      {
-        row = 4;
-        column = 0;
-      }
-      else if (e.getSource() == place38)
-      {
-        row = 4;
-        column = 1;
-      }
-      else if (e.getSource() == place39)
-      {
-        row = 4;
-        column = 2;
-      }
-      else if (e.getSource() == place40)
-      {
-        row = 4;
-        column = 3;
-      }
-      else if (e.getSource() == place41)
-      {
-        row = 4;
-        column = 4;
-      }
-      else if (e.getSource() == place42)
-      {
-        row = 4;
-        column = 5;
-      }
-      else if (e.getSource() == place43)
-      {
-        row = 4;
-        column = 6;
-      }
-      else if (e.getSource() == place44)
-      {
-        row = 4;
-        column = 7;
-      }
-      else if (e.getSource() == place45)
-      {
-        row = 4;
-        column = 8;
-      }
-      else if (e.getSource() == place46)
-      {
-        row = 5;
-        column = 0;
-      }
-      else if (e.getSource() == place47)
-      {
-        row = 5;
-        column = 1;
-      }
-      else if (e.getSource() == place48)
-      {
-        row = 5;
-        column = 2;
-      }
-      else if (e.getSource() == place49)
-      {
-        row = 5;
-        column = 3;
-      }
-      else if (e.getSource() == place50)
-      {
-        row = 5;
-        column = 4;
-      }
-      else if (e.getSource() == place51)
-      {
-        row = 5;
-        column = 5;
-      }
-      else if (e.getSource() == place52)
-      {
-        row = 5;
-        column = 6;
-      }
-      else if (e.getSource() == place53)
-      {
-        row = 5;
-        column = 7;
-      }
-      else if (e.getSource() == place54)
-      {
-        row = 5;
-        column = 8;
-      }
-      else if (e.getSource() == place55)
-      {
-        row = 6;
-        column = 0;
-      }
-      else if (e.getSource() == place56)
-      {
-        row = 6;
-        column = 1;
-      }
-      else if (e.getSource() == place57)
-      {
-        row = 6;
-        column = 2;
-      }
-      else if (e.getSource() == place58)
-      {
-        row = 6;
-        column = 3;
-      }
-      else if (e.getSource() == place59)
-      {
-        row = 6;
-        column = 4;
-      }
-      else if (e.getSource() == place60)
-      {
-        row = 6;
-        column = 5;
-      }
-      else if (e.getSource() == place61)
-      {
-        row = 6;
-        column = 6;
-      }
-      else if (e.getSource() == place62)
-      {
-        row = 6;
-        column = 7;
-      }
-      else if (e.getSource() == place63)
-      {
-        row = 6;
-        column = 8;
-      }
-      else if (e.getSource() == place64)
-      {
-        row = 7;
-        column = 0;
-      }
-      else if (e.getSource() == place65)
-      {
-        row = 7;
-        column = 1;
-      }
-      else if (e.getSource() == place66)
-      {
-        row = 7;
-        column = 2;
-      }
-      else if (e.getSource() == place67)
-      {
-        row = 7;
-        column = 3;
-      }
-      else if (e.getSource() == place68)
-      {
-        row = 7;
-        column = 4;
-      }
-      else if (e.getSource() == place69)
-      {
-        row = 7;
-        column = 5;
-      }
-      else if (e.getSource() == place70)
-      {
-        row = 7;
-        column = 6;
-      }
-      else if (e.getSource() == place71)
-      {
-        row = 7;
-        column = 7;
-      }
-      else if (e.getSource() == place72)
-      {
-        row = 7;
-        column = 8;
-      }
-      else if (e.getSource() == place73)
-      {
-        row = 8;
-        column = 0;
-      }
-      else if (e.getSource() == place74)
-      {
-        row = 8;
-        column = 1;
-      }
-      else if (e.getSource() == place75)
-      {
-        row = 8;
-        column = 2;
-      }
-      else if (e.getSource() == place76)
-      {
-        row = 8;
-        column = 3;
-      }
-      else if (e.getSource() == place77)
-      {
-        row = 8;
-        column = 4;
-      }
-      else if (e.getSource() == place78)
-      {
-        row = 8;
-        column = 5;
-      }
-      else if (e.getSource() == place79)
-      {
-        row = 8;
-        column = 6;
-      }
-      else if (e.getSource() == place80)
-      {
-        row = 8;
-        column = 7;
-      }
-      else if (e.getSource() == place81)
-      {
-        row = 8;
-        column = 8;
-      }
-      else if (e.getSource() == place82)
-      {
-        row = 9;
-        column = 0;
-      }
-      else if (e.getSource() == place83)
-      {
-        row = 9;
-        column = 1;
-      }
-      else if (e.getSource() == place84)
-      {
-        row = 9;
-        column = 2;
-      }
-      else if (e.getSource() == place85)
-      {
-        row = 9;
-        column = 3;
-      }
-      else if (e.getSource() == place86)
-      {
-        row = 9;
-        column = 4;
-      }
-      else if (e.getSource() == place87)
-      {
-        row = 9;
-        column = 5;
-      }
-      else if (e.getSource() == place88)
-      {
-        row = 9;
-        column = 6;
-      }
-      else if (e.getSource() == place89)
-      {
-        row = 9;
-        column = 7;
-      }
-      else if (e.getSource() == place90)
-      {
-        row = 9;
-        column = 8;
-      }
-      if(clickTimes == 0)
-      {
-        r1 = row;
-        c1 = column;
-        if (Board.getPiece(r1, c1) != null && Board.getPiece(r1, c1).getTeam() == turn)
+
+      //PASSED
+      if (e.getSource() == pass)
+      {
+        if(kingsFacingTurns == 1)
         {
-          boolean validMoves = false;
-          for (int r = 0; r < 10; r++)
-          {
-            for (int c = 0; c < 9; c++)
-            {
-              if (Board.getPiece(r1, c1).canMove(r, c) && !checkForSuicideMove(r1, c1, r, c))
-              {
-                validMoves = true;
-                greyCircles[r][c].setVisible(true);
-              }
-            }
-          }
-          if (validMoves)
-          {
-            clickTimes++;
-          }
+          facingDraw = true;
+          draw.setVisible(true);
+          pass.setVisible(false);
+          turnIndicator.setIcon(new ImageIcon("greyEnd.png"));
+          redResign.setVisible(false);
+          greenResign.setVisible(false);
+          flip.setVisible(false);
+          
         }
-      }
-      else if(clickTimes == 1)
-      {
-        r2 = row;
-        c2 = column;
-        if(kingsFacingDraw(r1, c1, r2, c2))
+        else
         {
-          updateMovedPieces(r1, c1, r2, c2);
-        }
-        if(!(Board.getPiece(r1, c1) == null || Board.getPiece(r1, c1).getTeam() != turn || !Board.getPiece(r1, c1).canMove(r2, c2) || checkForSuicideMove(r1, c1, r2, c2)))
-        {
-          updateMovedPieces(r1, c1, r2, c2);
-          Board.movePiece(r1, c1, r2, c2);
           turn = !turn;
         }
-
+        if (!facingDraw && turn)
+        {
+          turnIndicator.setIcon(new ImageIcon("greenTurn.png"));
+          flip.setIcon(new ImageIcon("greenFlip.png"));
+        }
+        else if (!facingDraw && !turn)
+        {
+          turnIndicator.setIcon(new ImageIcon("redTurn.png"));
+          flip.setIcon(new ImageIcon("redFlip.png"));
+        }
+        clickTimes = 0;
         for (int r = 0; r < 10; r++)
         {
           for (int c = 0; c < 9; c++)
@@ -1091,20 +738,735 @@ public class MyFrame extends JFrame implements MouseListener
             greyCircles[r][c].setVisible(false);
           }
         }
+      }
+
+      //GREEN WINS BY RESIGNATION
+      else if (started && e.getSource() == redResign)
+      {
+        greenWin.setVisible(true);
+        redResign.setVisible(false);
+        pass.setVisible(false);
+        greenResign.setVisible(false);
+        flip.setVisible(false);
+        turnIndicator.setIcon(new ImageIcon("greenEnd.png"));
+        started = false;
+      }
+
+      //RED WINS BY RESIGNATION
+      else if (started && e.getSource() == greenResign)
+      {
+        redResign.setVisible(false);
+        pass.setVisible(false);
+        greenResign.setVisible(false);
+        redWin.setVisible(true);
+        flip.setVisible(false);
+        turnIndicator.setIcon(new ImageIcon("redEnd.png"));
+        started = false;
+      }
+
+      else if (started && e.getSource() == flip)
+      {
+        started = false;
+        flip.setVisible(false);
+        pass.setVisible(false);
+        greenResign.setVisible(false);
+        redResign.setVisible(false);
+        if (turn)
+        {
+          redWin.setVisible(true);
+          turnIndicator.setIcon(new ImageIcon("redEnd.png"));
+        }
+        else
+        {
+          greenWin.setVisible(true);
+          turnIndicator.setIcon(new ImageIcon("greenEnd.png"));
+        }
+        Board.flipBoard();
+        printAllPieces();
+      }
+
+      
+
+      //START GAME (CONFIRM BUTTON)
+      else if (!started && e.getSource() == confirm)
+      {
+        started = true;
+        confirm.setVisible(false);
+        swap1.setVisible(false);
+        swap2.setVisible(false);
+        swap3.setVisible(false);
+        swap4.setVisible(false);
+        pass.setVisible(true);
+        redResign.setVisible(true);
+        greenResign.setVisible(true);
+        flip.setVisible(true);
+        turnIndicator.setIcon(new ImageIcon("greenTurn.png"));
+      }
         
-        clickTimes = 0;
-        if (facingDraw)
+      else if (!started && e.getSource() == swap1)
+      {
+        Board.swapPieces(0, 6, 0, 7);
+        Icon temp = graphicalPieces[0][6].getIcon();
+        graphicalPieces[0][6].setIcon(graphicalPieces[0][7].getIcon());
+        graphicalPieces[0][7].setIcon(temp);
+      }
+      else if (!started && e.getSource() == swap2)
+      {
+        Board.swapPieces(0, 1, 0, 2);
+        Icon temp = graphicalPieces[0][1].getIcon();
+        graphicalPieces[0][1].setIcon(graphicalPieces[0][2].getIcon());
+        graphicalPieces[0][2].setIcon(temp);
+      }
+      else if (!started && e.getSource() == swap3)
+      {
+        Board.swapPieces(9, 1, 9, 2);
+        Icon temp = graphicalPieces[9][1].getIcon();
+        graphicalPieces[9][1].setIcon(graphicalPieces[9][2].getIcon());
+        graphicalPieces[9][2].setIcon(temp);
+      }
+      else if (!started && e.getSource() == swap4)
+      {
+        Board.swapPieces(9, 6, 9, 7);
+        Icon temp = graphicalPieces[9][6].getIcon();
+        graphicalPieces[9][6].setIcon(graphicalPieces[9][7].getIcon());
+        graphicalPieces[9][7].setIcon(temp);
+      }
+
+
+      //PIECE
+      else if (started)
+      {
+        if(e.getSource() == place1)
         {
-          System.out.println("draw");
+          row = 0;
+          column = 0;
         }
-        else if (Board.getGreenKing().isCheckmate())
+        else if (e.getSource() == place2)
         {
-          System.out.println("red wins");
+          row = 0;
+          column = 1;
         }
-        else if (Board.getRedKing().isCheckmate())
+        else if (e.getSource() == place3)
         {
-          System.out.println("green wins");
+          row = 0;
+          column = 2;
         }
+        else if (e.getSource() == place4)
+        {
+          row = 0;
+          column = 3;
+        }
+        else if (e.getSource() == place5)
+        {
+          row = 0;
+          column = 4;
+        }
+        else if (e.getSource() == place6)
+        {
+          row = 0;
+          column = 5;
+        }
+        else if (e.getSource() == place7)
+        {
+          row = 0;
+          column = 6;
+        }
+        else if (e.getSource() == place8)
+        {
+          row = 0;
+          column = 7;
+        }
+        else if (e.getSource() == place9)
+        {
+          row = 0;
+          column = 8;
+        }
+        else if (e.getSource() == place10)
+        {
+          row = 1;
+          column = 0;
+        }
+        else if (e.getSource() == place11)
+        {
+          row = 1;
+          column = 1;
+        }
+        else if (e.getSource() == place12)
+        {
+          row = 1;
+          column = 2;
+        }
+        else if (e.getSource() == place13)
+        {
+          row = 1;
+          column = 3;
+        }
+        else if (e.getSource() == place14)
+        {
+          row = 1;
+          column = 4;
+        }
+        else if (e.getSource() == place15)
+        {
+          row = 1;
+          column = 5;
+        }
+        else if (e.getSource() == place16)
+        {
+          row = 1;
+          column = 6;
+        }
+        else if (e.getSource() == place17)
+        {
+          row = 1;
+          column = 7;
+        }
+        else if (e.getSource() == place18)
+        {
+          row = 1;
+          column = 8;
+        }
+        else if (e.getSource() == place19)
+        {
+          row = 2;
+          column = 0;
+        }
+        else if (e.getSource() == place20)
+        {
+          row = 2;
+          column = 1;
+        }
+        else if (e.getSource() == place21)
+        {
+          row = 2;
+          column = 2;
+        }
+        else if (e.getSource() == place22)
+        {
+          row = 2;
+          column = 3;
+        }
+        else if (e.getSource() == place23)
+        {
+          row = 2;
+          column = 4;
+        }
+        else if (e.getSource() == place24)
+        {
+          row = 2;
+          column = 5;
+        }
+        else if (e.getSource() == place25)
+        {
+          row = 2;
+          column = 6;
+        }
+        else if (e.getSource() == place26)
+        {
+          row = 2;
+          column = 7;
+        }
+        else if (e.getSource() == place27)
+        {
+          row = 2;
+          column = 8;
+        }
+        else if (e.getSource() == place28)
+        {
+          row = 3;
+          column = 0;
+        }
+        else if (e.getSource() == place29)
+        {
+          row = 3;
+          column = 1;
+        }
+        else if (e.getSource() == place30)
+        {
+          row = 3;
+          column = 2;
+        }
+        else if (e.getSource() == place31)
+        {
+          row = 3;
+          column = 3;
+        }
+        else if (e.getSource() == place32)
+        {
+          row = 3;
+          column = 4;
+        }
+        else if (e.getSource() == place33)
+        {
+          row = 3;
+          column = 5;
+        }
+        else if (e.getSource() == place34)
+        {
+          row = 3;
+          column = 6;
+        }
+        else if (e.getSource() == place35)
+        {
+          row = 3;
+          column = 7;
+        }
+        else if (e.getSource() == place36)
+        {
+          row = 3;
+          column = 8;
+        }
+        else if (e.getSource() == place37)
+        {
+          row = 4;
+          column = 0;
+        }
+        else if (e.getSource() == place38)
+        {
+          row = 4;
+          column = 1;
+        }
+        else if (e.getSource() == place39)
+        {
+          row = 4;
+          column = 2;
+        }
+        else if (e.getSource() == place40)
+        {
+          row = 4;
+          column = 3;
+        }
+        else if (e.getSource() == place41)
+        {
+          row = 4;
+          column = 4;
+        }
+        else if (e.getSource() == place42)
+        {
+          row = 4;
+          column = 5;
+        }
+        else if (e.getSource() == place43)
+        {
+          row = 4;
+          column = 6;
+        }
+        else if (e.getSource() == place44)
+        {
+          row = 4;
+          column = 7;
+        }
+        else if (e.getSource() == place45)
+        {
+          row = 4;
+          column = 8;
+        }
+        else if (e.getSource() == place46)
+        {
+          row = 5;
+          column = 0;
+        }
+        else if (e.getSource() == place47)
+        {
+          row = 5;
+          column = 1;
+        }
+        else if (e.getSource() == place48)
+        {
+          row = 5;
+          column = 2;
+        }
+        else if (e.getSource() == place49)
+        {
+          row = 5;
+          column = 3;
+        }
+        else if (e.getSource() == place50)
+        {
+          row = 5;
+          column = 4;
+        }
+        else if (e.getSource() == place51)
+        {
+          row = 5;
+          column = 5;
+        }
+        else if (e.getSource() == place52)
+        {
+          row = 5;
+          column = 6;
+        }
+        else if (e.getSource() == place53)
+        {
+          row = 5;
+          column = 7;
+        }
+        else if (e.getSource() == place54)
+        {
+          row = 5;
+          column = 8;
+        }
+        else if (e.getSource() == place55)
+        {
+          row = 6;
+          column = 0;
+        }
+        else if (e.getSource() == place56)
+        {
+          row = 6;
+          column = 1;
+        }
+        else if (e.getSource() == place57)
+        {
+          row = 6;
+          column = 2;
+        }
+        else if (e.getSource() == place58)
+        {
+          row = 6;
+          column = 3;
+        }
+        else if (e.getSource() == place59)
+        {
+          row = 6;
+          column = 4;
+        }
+        else if (e.getSource() == place60)
+        {
+          row = 6;
+          column = 5;
+        }
+        else if (e.getSource() == place61)
+        {
+          row = 6;
+          column = 6;
+        }
+        else if (e.getSource() == place62)
+        {
+          row = 6;
+          column = 7;
+        }
+        else if (e.getSource() == place63)
+        {
+          row = 6;
+          column = 8;
+        }
+        else if (e.getSource() == place64)
+        {
+          row = 7;
+          column = 0;
+        }
+        else if (e.getSource() == place65)
+        {
+          row = 7;
+          column = 1;
+        }
+        else if (e.getSource() == place66)
+        {
+          row = 7;
+          column = 2;
+        }
+        else if (e.getSource() == place67)
+        {
+          row = 7;
+          column = 3;
+        }
+        else if (e.getSource() == place68)
+        {
+          row = 7;
+          column = 4;
+        }
+        else if (e.getSource() == place69)
+        {
+          row = 7;
+          column = 5;
+        }
+        else if (e.getSource() == place70)
+        {
+          row = 7;
+          column = 6;
+        }
+        else if (e.getSource() == place71)
+        {
+          row = 7;
+          column = 7;
+        }
+        else if (e.getSource() == place72)
+        {
+          row = 7;
+          column = 8;
+        }
+        else if (e.getSource() == place73)
+        {
+          row = 8;
+          column = 0;
+        }
+        else if (e.getSource() == place74)
+        {
+          row = 8;
+          column = 1;
+        }
+        else if (e.getSource() == place75)
+        {
+          row = 8;
+          column = 2;
+        }
+        else if (e.getSource() == place76)
+        {
+          row = 8;
+          column = 3;
+        }
+        else if (e.getSource() == place77)
+        {
+          row = 8;
+          column = 4;
+        }
+        else if (e.getSource() == place78)
+        {
+          row = 8;
+          column = 5;
+        }
+        else if (e.getSource() == place79)
+        {
+          row = 8;
+          column = 6;
+        }
+        else if (e.getSource() == place80)
+        {
+          row = 8;
+          column = 7;
+        }
+        else if (e.getSource() == place81)
+        {
+          row = 8;
+          column = 8;
+        }
+        else if (e.getSource() == place82)
+        {
+          row = 9;
+          column = 0;
+        }
+        else if (e.getSource() == place83)
+        {
+          row = 9;
+          column = 1;
+        }
+        else if (e.getSource() == place84)
+        {
+          row = 9;
+          column = 2;
+        }
+        else if (e.getSource() == place85)
+        {
+          row = 9;
+          column = 3;
+        }
+        else if (e.getSource() == place86)
+        {
+          row = 9;
+          column = 4;
+        }
+        else if (e.getSource() == place87)
+        {
+          row = 9;
+          column = 5;
+        }
+        else if (e.getSource() == place88)
+        {
+          row = 9;
+          column = 6;
+        }
+        else if (e.getSource() == place89)
+        {
+          row = 9;
+          column = 7;
+        }
+        else if (e.getSource() == place90)
+        {
+          row = 9;
+          column = 8;
+        }
+        if(clickTimes == 0)
+        {
+          r1 = row;
+          c1 = column;
+          if (Board.getPiece(r1, c1) != null && Board.getPiece(r1, c1).getTeam() == turn)
+          {
+            //boolean validMoves = false;
+            for (int r = 0; r < 10; r++)
+            {
+              for (int c = 0; c < 9; c++)
+              {
+                if (Board.getPiece(r1, c1).canMove(r, c))
+                {
+                  if (kingsFacingTurns == 1)
+                  {
+                    if (c == c1)
+                    {
+                      greyCircles[r][c].setVisible(true);
+                    }
+                    else
+                    {
+                      if (!checkForSuicideMove(r1, c1, r, c))
+                      {
+                        greyCircles[r][c].setVisible(true);
+                      }
+                    }
+                  }
+                  else
+                  {
+                    if (!checkForSuicideMove(r1, c1, r, c))
+                    {
+                      greyCircles[r][c].setVisible(true);
+                    }
+                  }
+                }
+              }
+            }
+            /*
+            if (validMoves)
+            {
+              clickTimes++;
+            }
+            */
+            clickTimes++;
+          }
+        }
+        else if(clickTimes == 1)
+        {
+          r2 = row;
+          c2 = column;
+          for (int r = 0; r < 10; r++)
+          {
+            for (int c = 0; c < 9; c++)
+            {
+              greyCircles[r][c].setVisible(false);
+            }
+          }
+          if (Board.getPiece(r2, c2) != null && Board.getPiece(r2, c2).getTeam() == turn)
+          {
+            r1 = row;
+            c1 = column;
+            for (int r = 0; r < 10; r++)
+            {
+              for (int c = 0; c < 9; c++)
+              {
+                if (Board.getPiece(r1, c1).canMove(r, c))
+                {
+                  if (kingsFacingTurns == 1)
+                  {
+                    if (c == c1)
+                    {
+                      greyCircles[r][c].setVisible(true);
+                    }
+                    else
+                    {
+                      if (!checkForSuicideMove(r1, c1, r, c))
+                      {
+                        greyCircles[r][c].setVisible(true);
+                      }
+                    }
+                  }
+                  else
+                  {
+                    if (!checkForSuicideMove(r1, c1, r, c))
+                    {
+                      greyCircles[r][c].setVisible(true);
+                    }
+                  }
+                }
+              }
+            }
+          }
+          else
+          {
+            if(kingsFacingDraw(r1, c1, r2, c2))
+            {
+              updateMovedPieces(r1, c1, r2, c2);
+            }
+            if(!(Board.getPiece(r1, c1) == null || Board.getPiece(r1, c1).getTeam() != turn || !Board.getPiece(r1, c1).canMove(r2, c2) || checkForSuicideMove(r1, c1, r2, c2)))
+            {
+              updateMovedPieces(r1, c1, r2, c2);
+              Board.movePiece(r1, c1, r2, c2);
+              turn = !turn;
+              if(Board.getGreenKing().isInCheck(Board.getRed()))
+              {
+                graphicalPieces[Board.getGreenKing().getRow()][Board.getGreenKing().getColumn()].setIcon(new ImageIcon(new ImageIcon("green_king_check.png").getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT)));
+              }
+              else
+              {
+                graphicalPieces[Board.getGreenKing().getRow()][Board.getGreenKing().getColumn()].setIcon(new ImageIcon(new ImageIcon("green_king.png").getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT)));
+              }
+              if(Board.getRedKing().isInCheck(Board.getGreen()))
+              {
+                graphicalPieces[Board.getRedKing().getRow()][Board.getRedKing().getColumn()].setIcon(new ImageIcon(new ImageIcon("red_king_check.png").getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT)));
+              }
+              else
+              {
+                graphicalPieces[Board.getRedKing().getRow()][Board.getRedKing().getColumn()].setIcon(new ImageIcon(new ImageIcon("red_king.png").getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT)));
+              }
+            }
+            
+            clickTimes = 0;
+            if (turn)
+            {
+              turnIndicator.setIcon(new ImageIcon("greenTurn.png"));
+              flip.setIcon(new ImageIcon("greenFlip.png"));
+            }
+            else
+            {
+              turnIndicator.setIcon(new ImageIcon("redTurn.png"));
+              flip.setIcon(new ImageIcon("redFlip.png"));
+            }
+
+            //GAME ENDS
+            if (facingDraw)
+            {
+              System.out.println("draw");
+              pass.setVisible(false);
+              redResign.setVisible(false);
+              greenResign.setVisible(false);
+              draw.setVisible(true);
+              flip.setVisible(false);
+              turnIndicator.setIcon(new ImageIcon("greyEnd.png"));
+              started = false;
+              
+            }
+            else if (Board.getGreenKing().isCheckmate())
+            {
+              System.out.println("red wins");
+              pass.setVisible(false);
+              redResign.setVisible(false);
+              greenResign.setVisible(false);
+              redWin.setVisible(true);
+              flip.setVisible(false);
+              turnIndicator.setIcon(new ImageIcon("redEnd.png"));
+              started = false;
+            }
+            else if (Board.getRedKing().isCheckmate())
+            {
+              System.out.println("green wins");
+              pass.setVisible(false);
+              redResign.setVisible(false);
+              greenResign.setVisible(false);
+              greenWin.setVisible(true);
+              flip.setVisible(false);
+              turnIndicator.setIcon(new ImageIcon("greenEnd.png"));
+              started = false;
+            }
+
+            if ( (Board.getGreenKing().isInCheck(Board.getRed()) || Board.getRedKing().isInCheck(Board.getGreen())))
+            {
+              pass.setVisible(false);
+            }
+            else
+            {
+              if (started)
+                pass.setVisible(true);
+            }
+            
+          }
+        }  
       }
     }
   }
@@ -1128,7 +1490,6 @@ public class MyFrame extends JFrame implements MouseListener
       Board.movePiece(r2, c2, r1, c1);
       Board.setPiece(r2, c2, temp);
     }
-    System.out.println(suicideMove);
     return suicideMove;
   }
 
@@ -1142,14 +1503,22 @@ public class MyFrame extends JFrame implements MouseListener
       Board.movePiece(r1, c1, r2, c2);
       if(kingsFacingTurns == 0)
       {
-        if(!checkForSuicideMove(r1, c1, r2, c2) && Board.kingsAreFacing())
+        if(turn && !Board.getGreenKing().isInCheck(Board.getRed()) && Board.kingsAreFacing())
+        {
+          kingsFacingTurns++;
+        }
+        else if(!turn && !Board.getRedKing().isInCheck(Board.getGreen()) && Board.kingsAreFacing())
         {
           kingsFacingTurns++;
         }
       }
       else if(kingsFacingTurns == 1)
       {
-        if(!checkForSuicideMove(r1, c1, r2, c2) && !Board.kingsAreFacing())
+        if(turn && !Board.getGreenKing().isInCheck(Board.getRed()) && !Board.kingsAreFacing())
+        {
+          kingsFacingTurns = 0;
+        }
+        else if(!turn && !Board.getRedKing().isInCheck(Board.getGreen()) && !Board.kingsAreFacing())
         {
           kingsFacingTurns = 0;
         }
@@ -1165,11 +1534,44 @@ public class MyFrame extends JFrame implements MouseListener
         Board.setPiece(r2, c2, temp);
       }
     }
+    //System.out.println("turn count: " + kingsFacingTurns);
     return result;
   }
   
   public void mouseEntered(MouseEvent e)
   {
+    if (e.getSource() == pass)
+    {
+      pass.setIcon(new ImageIcon("passHover.png"));
+    }
+    else if (e.getSource() == confirm)
+    {
+      confirm.setIcon(new ImageIcon("confirmHover.png"));
+    }
+    else if (e.getSource() == swap1)
+    {
+      swap1.setIcon(new ImageIcon("swap_arrow_redHover.png"));
+    }
+    else if (e.getSource() == swap2)
+    {
+      swap2.setIcon(new ImageIcon("swap_arrow_redHover.png"));
+    }
+    else if (e.getSource() == swap3)
+    {
+      swap3.setIcon(new ImageIcon("swap_arrow_greenHover.png"));
+    }
+    else if (e.getSource() == swap4)
+    {
+      swap4.setIcon(new ImageIcon("swap_arrow_greenHover.png"));
+    }
+    else if (e.getSource() == redResign)
+    {
+      redResign.setIcon(new ImageIcon("redResignHover.png"));
+    }
+    else if (e.getSource() == greenResign)
+    {
+      greenResign.setIcon(new ImageIcon("greenResignHover.png"));
+    }
     
   }
 
@@ -1183,6 +1585,39 @@ public class MyFrame extends JFrame implements MouseListener
   }
   public void mouseExited(MouseEvent e)
   {
+    if (e.getSource() == pass)
+    {
+      pass.setIcon(new ImageIcon("pass.png"));
+    }
+    else if (e.getSource() == confirm)
+    {
+      confirm.setIcon(new ImageIcon("confirm.png"));
+    }
+    else if (e.getSource() == swap1)
+    {
+      swap1.setIcon(new ImageIcon("swap_arrow_red.png"));
+    }
+    else if (e.getSource() == swap2)
+    {
+      swap2.setIcon(new ImageIcon("swap_arrow_red.png"));
+    }
+    else if (e.getSource() == swap3)
+    {
+      swap3.setIcon(new ImageIcon("swap_arrow_green.png"));
+    }
+    else if (e.getSource() == swap4)
+    {
+      swap4.setIcon(new ImageIcon("swap_arrow_green.png"));
+    }
+    else if (e.getSource() == redResign)
+    {
+      redResign.setIcon(new ImageIcon("redResign.png"));
+    }
+    else if (e.getSource() == greenResign)
+    {
+      greenResign.setIcon(new ImageIcon("greenResign.png"));
+    }
     
   }
-}
+
+} 

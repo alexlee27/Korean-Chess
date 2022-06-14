@@ -33,6 +33,7 @@ public class Main {
   public static void main(String[] args) {
     Board b = new Board();
     MyFrame frame = new MyFrame();
+    //Board.printBoard();
     /*
     Scanner in = new Scanner(System.in);
 
