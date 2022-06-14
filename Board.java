@@ -260,6 +260,7 @@ public class Board
     return false;
   }
 
+  //FLIP BOARD
   public static void flipBoard()
   {
     ArrayList<Piece> temp = new ArrayList<Piece>();
@@ -317,6 +318,15 @@ public class Board
   
     
     
+  }
+
+  public static void swapPieces(int r1, int c1, int r2, int c2)
+  {
+    Piece temp = board[r1][c1];
+    board[r1][c1].setCoord(r2, c2);
+    board[r2][c2].setCoord(r1, c1);
+    board[r1][c1] = board[r2][c2];
+    board[r2][c2] = temp;
   }
   
 }
